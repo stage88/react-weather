@@ -1,0 +1,3 @@
+rootProject.name = 'ReactWeather'
+
+include ':app'
