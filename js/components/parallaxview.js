@@ -1,9 +1,3 @@
-/**
- * @flow
- */
-
-
-
 const React = require('react-native');
 const {
   Animated,
@@ -283,7 +277,7 @@ class ParallaxScrollView extends Component {
               ? (
                 <Animated.View
                   style={{
-                  backgroundColor: 'rgba(0,0,0,0)',
+                  backgroundColor: backgroundColor,
                   height: stickyHeaderHeight,
                   opacity: interpolate(scrollY, {
                     inputRange: [p - p/3, p],
