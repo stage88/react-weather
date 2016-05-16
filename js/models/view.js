@@ -19,3 +19,8 @@ export type WeatherObservation = {
   low: string;
   high: string;
 };
+
+export type WeatherModel = {
+  observation: WeatherObservation;
+  forecast: Array<WeatherForecast>
+};

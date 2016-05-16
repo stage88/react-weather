@@ -4,7 +4,7 @@
 
 'use strict';
 
-var StatusBar = require('StatusBar');
+import StatusBar from 'StatusBar';
 
 import React, {
   AppRegistry,
@@ -33,15 +33,6 @@ class App extends Component {
   props: Props;
 
   render() {
-    const {
-      location,
-      forecast,
-      feelsLike,
-      current,
-      low,
-      high
-    } = this.props.observation;
-
     return (
       <View style={styles.container}>
         <StatusBar

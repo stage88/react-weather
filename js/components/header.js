@@ -21,7 +21,7 @@ import type {
 
 const renderForecastImage = require('./forecastimage')
 
-var dateFormat = require('dateformat');
+import dateFormat from 'dateformat';
 const today = dateFormat(new Date(), 'ddd d mmmm');
 
 type Props = {

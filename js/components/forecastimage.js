@@ -9,19 +9,29 @@ import React, {
 } from 'react-native';
 
 function renderForecastImage(forecast: string, width: number, height: number) {
+  var image: number;
   switch (forecast) {
     case 'Sunny':
-      var image = require('./img/sunny.png');
+      image = require('./img/sunny.png');
       break;
     case 'Clear':
-      var image = require('./img/sunny.png');
+      image = require('./img/sunny.png');
       break;
     case 'Partly Cloudy':
-      var image = require('./img/partly_cloudy.png');
+      image = require('./img/partly_cloudy.png');
       break;
-    default:
-      var image = null;
-      break
+    case 'Rain':
+      image = require('./img/rain.png');
+      break;
+    case 'Mostly Sunny':
+      image = require('./img/sunny_s_cloudy.png');
+      break;
+    case 'Cloudy':
+      image = require('./img/cloudy.png');
+      break;
+    case 'Possible Shower':
+      image = require('./img/rain_s_cloudy.png');
+      break;
   }
 
   const imageStyle = {

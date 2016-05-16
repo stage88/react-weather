@@ -4,68 +4,23 @@
 
 'use strict';
 
-var App = require('./app');
-var React = require('React');
-
-function getData() {
-  return {
-    observation: {
-      location: 'Queanbeyan',
-      forecast: 'Partly Cloudy',
-      feelsLike: '7.9',
-      current: '11.0',
-      low: '4',
-      high: '23'
-    },
-    forecast: [
-      {
-        day: 'Tomorrow',
-        forecast: 'Partly Cloudy',
-        low: '3',
-        high: '20'
-      },
-      {
-        day: 'Saturday',
-        forecast: 'Sunny',
-        low: '6',
-        high: '17'
-      },
-      {
-        day: 'Sunday',
-        forecast: 'Rain',
-        low: '1',
-        high: '15'
-      },
-      {
-        day: 'Monday',
-        forecast: 'Sunny',
-        low: '6',
-        high: '17'
-      },
-      {
-        day: 'Tuesday',
-        forecast: 'Sunny',
-        low: '6',
-        high: '17'
-      },
-      {
-        day: 'Wednesday',
-        forecast: 'Mostly Sunny',
-        low: '13',
-        high: '24'
-      }
-    ]
-  };
-}
+import React from 'React';
+import App from './app';
+import TestDataRepository from './repositories/testdata';
 
 function setup(): React.Component {
 
   class Root extends React.Component {
+    testDataRepository: TestDataRepository;
+
     constructor() {
       super();
+
+      var testDataRepository = new TestDataRepository();
+
       this.state = {
         isLoading: false,
-        data: getData()
+        data: testDataRepository.getAll()
       };
     }
 
