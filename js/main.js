@@ -19,10 +19,40 @@ function getData() {
     },
     forecast: [
       {
-        day: 'Today',
-        forecast: 'Partly Cloud',
+        day: 'Tomorrow',
+        forecast: 'Partly Cloudy',
         low: '3',
         high: '20'
+      },
+      {
+        day: 'Saturday',
+        forecast: 'Sunny',
+        low: '6',
+        high: '17'
+      },
+      {
+        day: 'Sunday',
+        forecast: 'Rain',
+        low: '1',
+        high: '15'
+      },
+      {
+        day: 'Monday',
+        forecast: 'Sunny',
+        low: '6',
+        high: '17'
+      },
+      {
+        day: 'Tuesday',
+        forecast: 'Sunny',
+        low: '6',
+        high: '17'
+      },
+      {
+        day: 'Wednesday',
+        forecast: 'Mostly Sunny',
+        low: '13',
+        high: '24'
       }
     ]
   };

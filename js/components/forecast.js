@@ -13,12 +13,11 @@ import React, {
   Image
 } from 'react-native';
 
-type WeatherForecast = {
-  day: string;
-  forecast: string;
-  low: string;
-  high: string;
-};
+import type {
+  WeatherForecast
+} from '../models/view'
+
+const renderForecastImage = require('./forecastimage')
 
 type Props = {
   forecast: Array<WeatherForecast>
@@ -35,8 +34,8 @@ class Forecast extends Component {
 
   render() {
     return (
-      <View style={{flexDirection: 'row', height: 500}}>
-        <View style={{flex: 1, backgroundColor: '#fff', borderColor: '#E2E2E2', paddingLeft: 12, paddingRight: 12}}>
+      <View style={styles.forecastView}>
+        <View style={styles.forecastList}>
           { this.renderForecast() }
         </View>
       </View>
@@ -45,20 +44,63 @@ class Forecast extends Component {
 
   renderForecast() {
     return (
-      this.props.forecast.map((item) => (
-        <View key={item.day} style={{borderColor: '#F4F4F4', borderBottomWidth: 1, paddingTop: 6, paddingBottom: 6, flexDirection: 'row'}}>
-          <View stye={{flex: 1}}>
-            <Text>{ item.day }</Text>
+      this.props.forecast.map((item, index) => {
+        if (index < this.props.forecast.length - 1) {
+          var separator = {
+            borderColor: '#F4F4F4',
+            borderBottomWidth: 1,
+          };
+        }
+
+        return (
+          <View key={item.day} style={[styles.forecastItem, separator]}>
+            <View stye={styles.forecastItemDayView}>
+              <Text>{ item.day }</Text>
+            </View>
+            <View style={styles.forecastItemDataView}>
+              { renderForecastImage(item.forecast, 20, 20) }
+              <Text style={styles.forecastItemTemp}>{ item.low }</Text>
+              <Text style={styles.forecastItemTemp}>{ item.high }</Text>
+            </View>
           </View>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-            <Image style={{width: 22, height: 22}} source={require('./img/rain_s_cloudy.png')} />
-            <Text style={{marginLeft: 12}}>{ item.low }</Text>
-            <Text style={{marginLeft: 12}}>{ item.high }</Text>
-          </View>
-        </View>
-      ))
+        );
+      })
     );
   }
 }
+
+const styles = StyleSheet.create({
+  forecastView: {
+    flexDirection: 'row',
+    borderColor: '#e2e2e2',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 3
+  },
+  forecastList: {
+    flex: 1,
+    borderColor: '#E2E2E2',
+    paddingLeft: 12,
+    paddingRight: 12
+  },
+  forecastItem: {
+    paddingTop: 10,
+    paddingBottom: 8,
+    flexDirection: 'row'
+  },
+  forecastItemDayView: {
+    flex: 1
+  },
+  forecastItemDataView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  forecastItemTemp: {
+    textAlign: 'right',
+    marginLeft: 14,
+    width: 18
+  }
+});
 
 module.exports = Forecast

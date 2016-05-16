@@ -19,21 +19,10 @@ import React, {
 import Header from './components/header';
 import Forecast from './components/forecast';
 
-type WeatherObservation = {
-  location: string;
-  forecast: string;
-  feelsLike: string;
-  current: string;
-  low: string;
-  high: string;
-};
-
-type WeatherForecast = {
-  day: string;
-  forecast: string;
-  low: string;
-  high: string;
-}
+import type {
+  WeatherObservation,
+  WeatherForecast
+} from './models/view'
 
 type Props = {
   observation: WeatherObservation;
@@ -59,13 +48,7 @@ class App extends Component {
           translucent={true}
           backgroundColor='transparent'
           barStyle='light-content'/>
-        <Header
-          location={location}
-          forecast={forecast}
-          feelsLike={feelsLike}
-          current={current}
-          low={low}
-          high={high}>
+        <Header observation={this.props.observation}>
           <Forecast forecast={this.props.forecast} />
         </Header>
       </View>

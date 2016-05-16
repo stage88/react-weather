@@ -15,17 +15,17 @@ import React, {
 } from 'react-native';
 
 import ParallaxScrollView from './parallaxview';
+import type {
+  WeatherObservation
+} from '../models/view'
+
+const renderForecastImage = require('./forecastimage')
 
 var dateFormat = require('dateformat');
 const today = dateFormat(new Date(), 'ddd d mmmm');
 
 type Props = {
-  location: string;
-  forecast: string;
-  feelsLike: string;
-  current: string;
-  low: string;
-  high: string;
+  observation: WeatherObservation;
   children: any;
 };
 
@@ -69,7 +69,7 @@ class Header extends Component {
     return (
       <View style={styles.stickyHeaderView}>
         <Text style={styles.stickyHeaderLocation}>
-          { this.props.location }
+          { this.props.observation.location }
         </Text>
         <Text style={styles.stickyHeaderToday}>{ today }</Text>
       </View>
@@ -80,14 +80,15 @@ class Header extends Component {
     return (
       <View>
         <View>
-          <Text style={styles.location}>{ this.props.location }</Text>
-          <Text style={styles.forecast}>{ this.props.forecast }</Text>
+          <Text style={styles.location}>{ this.props.observation.location }</Text>
+          <Text style={styles.forecast}>{ this.props.observation.forecast }</Text>
         </View>
         <View style={styles.centerView}>
-          { this.renderForecastImage() }
+          <View style={styles.centerImageView}>
+            { renderForecastImage(this.props.observation.forecast, 100, 100) }</View>
           <View>
-            <Text style={styles.currentTemp}>{ this.props.current + '\u00B0'}</Text>
-            <Text style={styles.feelsLike}>Feels like { this.props.feelsLike }</Text>
+            <Text style={styles.currentTemp}>{ this.props.observation.current + '\u00B0'}</Text>
+            <Text style={styles.feelsLike}>Feels like { this.props.observation.feelsLike }</Text>
           </View>
         </View>
         <View style={styles.bottomView}>
@@ -98,9 +99,9 @@ class Header extends Component {
             <Text style={styles.bottomViewTodayDate}>{ today }</Text>
           </View>
           <View style={styles.bottomViewRight}>
-            <Text style={styles.low}>{ this.props.low }</Text>
+            <Text style={styles.low}>{ this.props.observation.low }</Text>
             <Text style={styles.high}>
-              { this.props.high }
+              { this.props.observation.high }
             </Text>
           </View>
         </View>
@@ -109,7 +110,7 @@ class Header extends Component {
   }
 
   renderForecastImage() {
-    switch (this.props.forecast) {
+    switch (this.props.observation.forecast) {
       case 'Sunny':
         var image = require('./img/sunny.png');
         break;
@@ -162,10 +163,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 10
   },
-  centerViewImage: {
-    width: 100,
-    height: 100,
-    marginRight: 20
+  centerImageView: {
+    paddingRight: 20
   },
   currentTemp: {
     color: '#fff',
@@ -202,14 +201,15 @@ const styles = StyleSheet.create({
   },
   low: {
     color: '#fff',
-    marginRight: 6,
+    marginRight: 10,
     fontSize: 18,
     fontWeight: '300'
   },
   high: {
     color: '#fff',
     fontWeight: '500',
-    fontSize: 18}
+    fontSize: 18
+  }
 });
 
 module.exports = Header;
