@@ -5,39 +5,41 @@
 'use strict';
 
 import React from 'React';
+import { Provider } from 'react-redux';
 import App from './app';
-import TestDataRepository from './repositories/testdata';
+
+import configureStore from './store/configure';
+import { initialise } from './actions';
 
 function setup(): React.Component {
 
   class Root extends React.Component {
-    testDataRepository: TestDataRepository;
-
     constructor() {
       super();
 
-      var testDataRepository = new TestDataRepository();
-
       this.state = {
-        isLoading: false,
-        data: testDataRepository.getAll()
+        store: configureStore()
       };
+      this.state.store.dispatch(initialise());
     }
 
     render() {
-      if (this.state.isLoading) {
-        return null;
-      }
-
       return (
-        <App
-          observation={this.state.data.observation}
-          forecast={this.state.data.forecast} />
+        <Provider store={this.state.store}>
+          <App />
+        </Provider>
       );
     }
   }
 
   return Root;
 }
+
+global.log = (...args) => {
+  console.log('------------------------------');
+  console.log(...args);
+  console.log('------------------------------');
+  return args[args.length - 1];
+};
 
 module.exports = setup;

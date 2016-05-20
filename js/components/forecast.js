@@ -5,7 +5,6 @@
 'use strict';
 
 import React, {
-  AppRegistry,
   Component,
   StyleSheet,
   Text,
@@ -13,14 +12,14 @@ import React, {
   Image
 } from 'react-native';
 
-import type {
-  WeatherForecast
-} from '../models/view'
+import { connect } from 'react-redux';
+import type { WeatherForecast } from '../models/view'
 
 const renderForecastImage = require('./forecastimage')
 
 type Props = {
-  forecast: Array<WeatherForecast>
+  isLoading: bool;
+  forecast: Array<WeatherForecast>;
 };
 
 class Forecast extends Component {
@@ -33,6 +32,11 @@ class Forecast extends Component {
   }
 
   render() {
+    global.log(this.props);
+    if (this.props.isLoading) {
+        return null;
+    }
+
     return (
       <View style={styles.forecastView}>
         <View style={styles.forecastList}>
@@ -43,6 +47,7 @@ class Forecast extends Component {
   }
 
   renderForecast() {
+    this.props.forecast.shift();
     return (
       this.props.forecast.map((item, index) => {
         if (index < this.props.forecast.length - 1) {
@@ -58,7 +63,7 @@ class Forecast extends Component {
               <Text>{ item.day }</Text>
             </View>
             <View style={styles.forecastItemDataView}>
-              { renderForecastImage(item.forecast, 20, 20) }
+              { renderForecastImage(item.icon, 20, 20) }
               <Text style={styles.forecastItemTemp}>{ item.low }</Text>
               <Text style={styles.forecastItemTemp}>{ item.high }</Text>
             </View>
@@ -103,4 +108,11 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = Forecast
+function select(store): Props {
+  return {
+    isLoading: store.isLoading,
+    forecast: store.weather.forecast,
+  };
+}
+
+module.exports = connect(select)(Forecast);

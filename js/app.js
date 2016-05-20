@@ -5,32 +5,29 @@
 'use strict';
 
 import StatusBar from 'StatusBar';
-
 import React, {
-  AppRegistry,
   Component,
   StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image
+  View
 } from 'react-native';
+
+import { connect } from 'react-redux';
 
 import Header from './components/header';
 import Forecast from './components/forecast';
 
-import type {
-  WeatherObservation,
-  WeatherForecast
-} from './models/view'
+import { getAllWeather } from './actions';
 
 type Props = {
-  observation: WeatherObservation;
-  forecast: Array<WeatherForecast>;
+  dispatch: any;
 };
 
 class App extends Component {
   props: Props;
+
+  componentDidMount() {
+    this.props.dispatch(getAllWeather());
+  };
 
   render() {
     return (
@@ -39,9 +36,9 @@ class App extends Component {
           translucent={true}
           backgroundColor='transparent'
           barStyle='light-content'/>
-        <Header observation={this.props.observation}>
-          <Forecast forecast={this.props.forecast} />
-        </Header>
+          <Header>
+            <Forecast />
+          </Header>
       </View>
     );
   }
@@ -54,4 +51,6 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = App;
+module.exports = connect(() => {
+  return {};
+})(App);

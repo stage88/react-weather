@@ -5,19 +5,17 @@
 'use strict';
 
 import React, {
-  AppRegistry,
   Component,
   StyleSheet,
   Text,
   View,
-  ScrollView,
   Image
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import ParallaxScrollView from './parallaxview';
-import type {
-  WeatherObservation
-} from '../models/view'
+import type { WeatherObservation } from '../models/view'
 
 const renderForecastImage = require('./forecastimage')
 
@@ -25,8 +23,9 @@ import dateFormat from 'dateformat';
 const today = dateFormat(new Date(), 'ddd d mmmm');
 
 type Props = {
+  isLoading: bool;
   observation: WeatherObservation;
-  children: any;
+  children: ?any;
 };
 
 const PARALLAX_HEADER_HEIGHT = 260;
@@ -40,10 +39,15 @@ class Header extends Component {
 
     (this: any).renderStickyHeader = this.renderStickyHeader.bind(this);
     (this: any).renderHeader = this.renderHeader.bind(this);
-    (this: any).renderForecastImage = this.renderForecastImage.bind(this);
   }
 
   render() {
+    if (this.props.isLoading == true) {
+        return (
+          <View style={styles.loadingView} />
+        );
+    }
+    global.log(this.props);
     return (
       <ParallaxScrollView
         backgroundColor='#589BC7'
@@ -85,7 +89,7 @@ class Header extends Component {
         </View>
         <View style={styles.centerView}>
           <View style={styles.centerImageView}>
-            { renderForecastImage(this.props.observation.forecast, 100, 100) }</View>
+            { renderForecastImage(this.props.observation.icon, 100, 100) }</View>
           <View>
             <Text style={styles.currentTemp}>{ this.props.observation.current + '\u00B0'}</Text>
             <Text style={styles.feelsLike}>Feels like { this.props.observation.feelsLike }</Text>
@@ -108,30 +112,13 @@ class Header extends Component {
       </View>
     );
   }
-
-  renderForecastImage() {
-    switch (this.props.observation.forecast) {
-      case 'Sunny':
-        var image = require('./img/sunny.png');
-        break;
-      case 'Clear':
-        var image = require('./img/sunny.png');
-        break;
-      case 'Partly Cloudy':
-        var image = require('./img/partly_cloudy.png');
-        break;
-      default:
-        var image = null;
-        break
-    }
-
-    return (
-      <Image style={styles.centerViewImage} source={image} />
-    );
-  }
 }
 
 const styles = StyleSheet.create({
+  loadingView: {
+    height: PARALLAX_HEADER_HEIGHT,
+    backgroundColor: '#589BC7'
+  },
   location: {
     fontSize: 20,
     textAlign: 'center',
@@ -212,4 +199,11 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = Header;
+function select(store): Props {
+  return {
+    isLoading: store.isLoading,
+    observation: store.weather.observation
+  };
+}
+
+module.exports = connect(select)(Header);

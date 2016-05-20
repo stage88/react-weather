@@ -9,6 +9,7 @@ export type WeatherForecast = {
   forecast: string;
   low: string;
   high: string;
+  icon: string;
 };
 
 export type WeatherObservation = {
@@ -18,6 +19,7 @@ export type WeatherObservation = {
   current: string;
   low: string;
   high: string;
+  icon: string;
 };
 
 export type WeatherModel = {
