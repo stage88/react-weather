@@ -12,6 +12,7 @@ import React, {
 } from 'react-native';
 
 import { connect } from 'react-redux';
+import SwipeableViews from 'react-swipeable-views/lib/index.native.animated';
 
 import Header from './components/header';
 import Forecast from './components/forecast';

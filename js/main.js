@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import App from './app';
 
 import configureStore from './store/configure';
-import { initialise } from './actions';
+import { setWeatherLoading } from './actions';
 
 function setup(): React.Component {
 
@@ -20,7 +20,7 @@ function setup(): React.Component {
       this.state = {
         store: configureStore()
       };
-      this.state.store.dispatch(initialise());
+      this.state.store.dispatch(setWeatherLoading());
     }
 
     render() {

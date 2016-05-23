@@ -1,0 +1,24 @@
+[
+    {
+        "name": "Queanbeyan East",
+        "postcode": 2620,
+        "state": {
+            "name": "New South Wales",
+            "abbreviation": "NSW"
+        },
+        "locality": "CANBERRA",
+        "latitude": -35.342799999999997,
+        "longitude": 149.24440000000001
+    },
+    {
+        "name": "Queanbeyan",
+        "postcode": 2620,
+        "state": {
+            "name": "New South Wales",
+            "abbreviation": "NSW"
+        },
+        "locality": "CANBERRA",
+        "latitude": -35.354399999999998,
+        "longitude": 149.2321
+    }
+]

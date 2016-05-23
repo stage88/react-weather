@@ -12,9 +12,16 @@ export type State = {
   weather: ?WeatherModel;
 };
 
-function weather(state: State = {weather: null, isLoading: true}, action: Action): State {
+const initial: State = {
+  isLoading: false,
+  weather: null
+};
+
+function weather(state: State = initial, action: Action): State {
   switch (action.type) {
-    case 'GET_WEATHER_ALL':
+    case 'WEATHER_SET_LOADING':
+      return {...state, isLoading: true}
+    case 'WEATHER_GET_ALL':
       return {isLoading: false, ...action.data};
     default:
       return state;

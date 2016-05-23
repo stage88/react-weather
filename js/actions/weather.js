@@ -12,11 +12,18 @@ const service = new WeatherService();
 async function getAllWeather() {
   const weather = await service.getWeatherFromApiAsync('6619483');
   return {
-    type: 'GET_WEATHER_ALL',
+    type: 'WEATHER_GET_ALL',
     data: weather
   };
 }
 
+function setWeatherLoading() {
+  return {
+    type: 'WEATHER_SET_LOADING'
+  };
+}
+
 module.exports = {
-  getAllWeather
+  getAllWeather,
+  setWeatherLoading
 }

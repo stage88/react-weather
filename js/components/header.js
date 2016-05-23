@@ -15,7 +15,7 @@ import React, {
 import { connect } from 'react-redux';
 
 import ParallaxScrollView from './parallaxview';
-import type { WeatherObservation } from '../models/view'
+import type { WeatherObservation } from '../models/view';
 
 const renderForecastImage = require('./forecastimage')
 
@@ -42,12 +42,12 @@ class Header extends Component {
   }
 
   render() {
-    if (this.props.isLoading == true) {
-        return (
-          <View style={styles.loadingView} />
-        );
+    if (this.props.isLoading === true) {
+      return (
+        <View style={styles.loadingView} />
+      );
     }
-    global.log(this.props);
+
     return (
       <ParallaxScrollView
         backgroundColor='#589BC7'
@@ -200,8 +200,9 @@ const styles = StyleSheet.create({
 });
 
 function select(store): Props {
+  global.log(store);
   return {
-    isLoading: store.isLoading,
+    isLoading: store.weather.isLoading,
     observation: store.weather.observation
   };
 }

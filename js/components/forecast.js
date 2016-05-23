@@ -13,9 +13,9 @@ import React, {
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import type { WeatherForecast } from '../models/view'
+import type { WeatherForecast } from '../models/view';
 
-const renderForecastImage = require('./forecastimage')
+const renderForecastImage = require('./forecastimage');
 
 type Props = {
   isLoading: bool;
@@ -32,7 +32,6 @@ class Forecast extends Component {
   }
 
   render() {
-    global.log(this.props);
     if (this.props.isLoading) {
         return null;
     }
@@ -47,10 +46,13 @@ class Forecast extends Component {
   }
 
   renderForecast() {
-    this.props.forecast.shift();
+    var forecast = this.props.forecast.filter(function(item, index) {
+      return (index > 0);
+    });
+
     return (
-      this.props.forecast.map((item, index) => {
-        if (index < this.props.forecast.length - 1) {
+      forecast.map((item, index) => {
+        if (index < forecast.length - 1) {
           var separator = {
             borderColor: '#F4F4F4',
             borderBottomWidth: 1,
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
 
 function select(store): Props {
   return {
-    isLoading: store.isLoading,
+    isLoading: store.weather.isLoading,
     forecast: store.weather.forecast,
   };
 }

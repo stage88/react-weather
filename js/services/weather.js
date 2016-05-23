@@ -23,15 +23,16 @@ class WeatherService {
     var observation = await this.getWeatherObservationFromApiAsync(locationId);
     var forecast = await this.getWeatherForecastFromApiAsync(locationId);
 
-    observation.low = forecast[0].low;
-    observation.high = forecast[0].high;
-    observation.icon = forecast[0].icon;
+    if (observation && forecast) {
+      observation.low = forecast[0].low;
+      observation.high = forecast[0].high;
+      observation.icon = forecast[0].icon;
+    }
 
     var result = {
       observation: observation,
       forecast: forecast
     };
-    global.log(result);
 
     return result;
   }

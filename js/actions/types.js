@@ -7,5 +7,5 @@
 import type { WeatherModel } from '../models/view';
 
 export type Action =
-    { type: 'INITIALISE_STORE' }
-  | { type: 'GET_WEATHER_ALL', data: WeatherModel };;
+    { type: 'WEATHER_SET_LOADING' }
+  | { type: 'WEATHER_GET_ALL', data: WeatherModel };

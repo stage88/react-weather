@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": 149.11,
+        "lat": -35.22
+    },
+    "weather": [
+        {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 21.34,
+        "pressure": 1016,
+        "humidity": 88,
+        "temp_min": 19,
+        "temp_max": 24
+    },
+    "visibility": 16093,
+    "wind": {
+        "speed": 2.6,
+        "deg": 200
+    },
+    "clouds": {
+        "all": 90
+    },
+    "dt": 1463812680,
+    "sys": {
+        "type": 1,
+        "id": 1688,
+        "message": 0.014,
+        "country": "AU",
+        "sunrise": 1463777765,
+        "sunset": 1463814240
+    },
+    "id": 6619483,
+    "name": "Kaleen",
+    "cod": 200
+}
