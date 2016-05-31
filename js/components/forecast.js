@@ -9,16 +9,14 @@ import React, {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
 } from 'react-native';
 
-import { connect } from 'react-redux';
 import type { WeatherForecast } from '../models/view';
 
 const renderForecastImage = require('./forecastimage');
 
 type Props = {
-  isLoading: bool;
   forecast: Array<WeatherForecast>;
 };
 
@@ -32,10 +30,6 @@ class Forecast extends Component {
   }
 
   render() {
-    if (this.props.isLoading) {
-        return null;
-    }
-
     return (
       <View style={styles.forecastView}>
         <View style={styles.forecastList}>
@@ -46,13 +40,9 @@ class Forecast extends Component {
   }
 
   renderForecast() {
-    var forecast = this.props.forecast.filter(function(item, index) {
-      return (index > 0);
-    });
-
     return (
-      forecast.map((item, index) => {
-        if (index < forecast.length - 1) {
+      this.props.forecast.map((item, index) => {
+        if (index < this.props.forecast.length - 1) {
           var separator = {
             borderColor: '#F4F4F4',
             borderBottomWidth: 1,
@@ -78,6 +68,8 @@ class Forecast extends Component {
 
 const styles = StyleSheet.create({
   forecastView: {
+    marginLeft: 5,
+    marginRight: 5,
     flexDirection: 'row',
     borderColor: '#e2e2e2',
     backgroundColor: '#fff',
@@ -110,11 +102,4 @@ const styles = StyleSheet.create({
   }
 });
 
-function select(store): Props {
-  return {
-    isLoading: store.weather.isLoading,
-    forecast: store.weather.forecast,
-  };
-}
-
-module.exports = connect(select)(Forecast);
+module.exports = Forecast;

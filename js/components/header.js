@@ -9,27 +9,36 @@ import React, {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  Animated,
+  Dimensions
 } from 'react-native';
 
 import { connect } from 'react-redux';
 
-import ParallaxScrollView from './parallaxview';
-import type { WeatherObservation } from '../models/view';
+import ParallaxScrollView from '../dependencies/parallaxview';
+import type { WeatherObservation, WeatherModel } from '../models/view';
 
 const renderForecastImage = require('./forecastimage')
 
 import dateFormat from 'dateformat';
 const today = dateFormat(new Date(), 'ddd d mmmm');
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
 type Props = {
   isLoading: bool;
-  observation: WeatherObservation;
+  weather: Array<WeatherModel>;
+  count: number;
+  totalWidth: number;
+  distanceToMiddle: number;
   children: ?any;
+  offset: Animated.Value;
+  current: Animated.Value;
 };
 
-const PARALLAX_HEADER_HEIGHT = 260;
-const STICKY_HEADER_HEIGHT = 55;
+const HEADER_HEIGHT = 290;
+const TITLE_HEIGHT = 55;
 
 class Header extends Component {
   props: Props;
@@ -37,28 +46,24 @@ class Header extends Component {
   constructor(props: Props) {
     super(props);
 
-    (this: any).renderStickyHeader = this.renderStickyHeader.bind(this);
+    (this: any).renderTitle = this.renderTitle.bind(this);
     (this: any).renderHeader = this.renderHeader.bind(this);
   }
 
   render() {
-    if (this.props.isLoading === true) {
-      return (
-        <View style={styles.loadingView} />
-      );
-    }
-
     return (
       <ParallaxScrollView
         backgroundColor='#589BC7'
         contentBackgroundColor='#F9F9F9'
-        parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
-        stickyHeaderHeight={STICKY_HEADER_HEIGHT}
+        parallaxHeaderHeight={HEADER_HEIGHT}
+        stickyHeaderHeight={TITLE_HEIGHT}
         showsVerticalScrollIndicator={false}
-        renderStickyHeader={this.renderStickyHeader}
+        renderStickyHeader={this.renderTitle}
         renderForeground={this.renderHeader}
         renderBackground={this.renderBackground}>
-        { this.props.children }
+        <View style={styles.childrenView}>
+          { this.props.children }
+        </View>
       </ParallaxScrollView>
     );
   }
@@ -69,55 +74,138 @@ class Header extends Component {
     );
   }
 
-  renderStickyHeader() {
+  renderTitle() {
+    var items = this.props.weather.map((item, index) => {
+      return this.renderTitleItem(item.observation, index);
+    });
+
     return (
-      <View style={styles.stickyHeaderView}>
-        <Text style={styles.stickyHeaderLocation}>
-          { this.props.observation.location }
-        </Text>
-        <Text style={styles.stickyHeaderToday}>{ today }</Text>
+      <View style={{flexDirection: 'row'}}>
+        { items }
       </View>
     );
   }
 
-  renderHeader() {
+  renderTitleItem(observation: WeatherObservation, index: number) {
+    var { count, totalWidth, distanceToMiddle } = this.props;
+    var middle = index * SCREEN_WIDTH;
+
+    var leftOffset = (middle - distanceToMiddle);
+    var rightOffset = (middle + distanceToMiddle);
+
+    const opacity = this.props.offset.interpolate({
+      inputRange: [leftOffset, middle, rightOffset],
+      outputRange: [0, 1, 0],
+      extrapolate: 'clamp',
+    });
+
+    const translateX = this.props.offset.interpolate({
+      inputRange: [leftOffset - 1, leftOffset, middle, rightOffset, rightOffset + 1],
+      outputRange: [(SCREEN_WIDTH * 2), (distanceToMiddle / 3), 0, -(distanceToMiddle / 3), -(SCREEN_WIDTH * 2)],
+      extrapolate: 'clamp',
+    });
+
+    const transforms = { opacity, transform: [{translateX}] };
+
     return (
-      <View>
-        <View>
-          <Text style={styles.location}>{ this.props.observation.location }</Text>
-          <Text style={styles.forecast}>{ this.props.observation.forecast }</Text>
+      <Animated.View key={`title-${index}`} style={[transforms, styles.titleViewAnimated]}>
+        <View style={styles.stickyHeaderView}>
+          <Text style={styles.stickyHeaderLocation}>
+            { observation.location }
+          </Text>
+          <Text style={styles.stickyHeaderToday}>{ today }</Text>
         </View>
-        <View style={styles.centerView}>
-          <View style={styles.centerImageView}>
-            { renderForecastImage(this.props.observation.icon, 100, 100) }</View>
-          <View>
-            <Text style={styles.currentTemp}>{ this.props.observation.current + '\u00B0'}</Text>
-            <Text style={styles.feelsLike}>Feels like { this.props.observation.feelsLike }</Text>
-          </View>
-        </View>
-        <View style={styles.bottomView}>
-          <View style={styles.bottomViewLeft}>
-            <Text style={styles.bottomViewToday}>
-              Today
-            </Text>
-            <Text style={styles.bottomViewTodayDate}>{ today }</Text>
-          </View>
-          <View style={styles.bottomViewRight}>
-            <Text style={styles.low}>{ this.props.observation.low }</Text>
-            <Text style={styles.high}>
-              { this.props.observation.high }
-            </Text>
-          </View>
-        </View>
+      </Animated.View>
+    );
+  }
+
+  renderHeader() {
+    var items = this.props.weather.map((item, index) => {
+      return this.renderHeaderItem(item.observation, index);
+    });
+
+    return (
+      <View style={{flexDirection: 'row'}}>
+        { items }
       </View>
+    );
+  }
+
+  renderHeaderItem(observation: WeatherObservation, index: number) {
+    var { count, totalWidth, distanceToMiddle } = this.props;
+    var middle = index * SCREEN_WIDTH;
+
+    var leftOffset = (middle - distanceToMiddle);
+    var rightOffset = (middle + distanceToMiddle);
+
+    // global.log({
+    //   leftOffset: leftOffset,
+    //   middle: middle,
+    //   rightOffset: rightOffset,
+    //   count: count,
+    // });
+
+    const opacity = this.props.offset.interpolate({
+      inputRange: [leftOffset, middle, rightOffset],
+      outputRange: [0, 1, 0],
+      extrapolate: 'clamp',
+    });
+
+    const translateX = this.props.offset.interpolate({
+      inputRange: [leftOffset - 1, leftOffset, middle, rightOffset, rightOffset + 1],
+      outputRange: [(SCREEN_WIDTH * 2), (distanceToMiddle / 3), 0, -(distanceToMiddle / 3), -(SCREEN_WIDTH * 2)],
+      extrapolate: 'clamp',
+    });
+
+    const transforms = { opacity, transform: [{translateX}] };
+
+    return (
+      <Animated.View key={`header-${index}`} style={[transforms, styles.headerViewAnimated]}>
+        <View style={styles.headerView}>
+          <View>
+            <Text style={styles.location}>{ observation.location }</Text>
+            <Text style={styles.forecast}>{ observation.forecast }</Text>
+          </View>
+          <View style={styles.centerView}>
+            <View style={styles.centerImageView}>
+              { renderForecastImage(observation.icon, 100, 100) }</View>
+            <View>
+              <Text style={styles.currentTemp}>{ observation.current + '\u00B0'}</Text>
+              <Text style={styles.feelsLike}>Feels like { observation.feelsLike }</Text>
+            </View>
+          </View>
+          <View style={styles.bottomView}>
+            <View style={styles.bottomViewLeft}>
+              <Text style={styles.bottomViewToday}>
+                Today
+              </Text>
+              <Text style={styles.bottomViewTodayDate}>{ today }</Text>
+            </View>
+            <View style={styles.bottomViewRight}>
+              <Text style={styles.low}>{ observation.low }</Text>
+              <Text style={styles.high}>
+                { observation.high }
+              </Text>
+            </View>
+          </View>
+        </View>
+      </Animated.View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  loadingView: {
-    height: PARALLAX_HEADER_HEIGHT,
-    backgroundColor: '#589BC7'
+  headerViewAnimated: {
+    width: SCREEN_WIDTH,
+    position: 'absolute'
+  },
+  titleViewAnimated: {
+    width: SCREEN_WIDTH,
+    position: 'absolute'
+  },
+  headerView: {
+    marginRight: 5,
+    marginLeft: 5
   },
   location: {
     fontSize: 20,
@@ -190,20 +278,29 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginRight: 10,
     fontSize: 18,
-    fontWeight: '300'
+    fontWeight: '300',
+    width: 20,
+    textAlign: 'right',
   },
   high: {
     color: '#fff',
     fontWeight: '500',
-    fontSize: 18
+    fontSize: 18,
+    width: 20,
+    textAlign: 'right',
+  },
+  childrenView: {
+    top: -30
   }
 });
 
 function select(store): Props {
-  global.log(store);
   return {
     isLoading: store.weather.isLoading,
-    observation: store.weather.observation
+    weather: store.weather.data,
+    count: store.weather.data.length,
+    totalWidth: SCREEN_WIDTH * store.weather.data.length,
+    distanceToMiddle: SCREEN_WIDTH / 2,
   };
 }
 

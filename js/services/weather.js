@@ -19,6 +19,18 @@ class WeatherService {
   //   });
   // }
 
+  async getWeatherArrayFromApiAsync(locationIds: Array<string>) {
+    var data = [];
+    for (var index = 0; index < locationIds.length; ++index) {
+      var locationId = locationIds[index];
+      var result = await this.getWeatherFromApiAsync(locationId);
+
+      data.push(result);
+    }
+
+    return data;
+  }
+
   async getWeatherFromApiAsync(locationId: string) {
     var observation = await this.getWeatherObservationFromApiAsync(locationId);
     var forecast = await this.getWeatherForecastFromApiAsync(locationId);
@@ -30,6 +42,7 @@ class WeatherService {
     }
 
     var result = {
+      id: locationId,
       observation: observation,
       forecast: forecast
     };
@@ -38,14 +51,14 @@ class WeatherService {
   }
 
   async getWeatherObservationFromApiAsync(locationId: string) {
-    const url = `${weatherApiUrl}/weather?id=${locationId}&units=metric&appid=${weatherApiKey}`;
+    var url = `${weatherApiUrl}/weather?id=${locationId}&units=metric&appid=${weatherApiKey}`;
 
     try {
       let response = await fetch(url);
       const result = await response.json();
 
       return {
-        location: 'Canberra',
+        location: result.name,
         forecast: result.weather[0].main,
         feelsLike: (result.main.temp_min | 0),
         current: (result.main.temp | 0),
@@ -60,7 +73,7 @@ class WeatherService {
   }
 
   async getWeatherForecastFromApiAsync(locationId: string) {
-    const url = `${weatherApiUrl}/forecast/daily?id=${locationId}&cnt=7&units=metric&appid=${weatherApiKey}`;
+    var url = `${weatherApiUrl}/forecast/daily?id=${locationId}&cnt=7&units=metric&appid=${weatherApiKey}`;
 
     try {
       let response = await fetch(url);

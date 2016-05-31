@@ -9,20 +9,29 @@ import type { WeatherModel } from '../models/view';
 
 export type State = {
   isLoading: bool;
-  weather: ?WeatherModel;
+  data: Array<WeatherModel>;
+  current: number;
 };
 
 const initial: State = {
   isLoading: false,
-  weather: null
+  data: [],
+  current: 0
 };
 
 function weather(state: State = initial, action: Action): State {
   switch (action.type) {
     case 'WEATHER_SET_LOADING':
-      return {...state, isLoading: true}
+      return {
+        ...state,
+        isLoading: true
+      };
     case 'WEATHER_GET_ALL':
-      return {isLoading: false, ...action.data};
+      return {
+        ...state,
+        isLoading: false,
+        data: action.data,
+      };
     default:
       return state;
   }

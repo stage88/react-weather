@@ -10,7 +10,12 @@ import WeatherService from '../services/weather';
 const service = new WeatherService();
 
 async function getAllWeather() {
-  const weather = await service.getWeatherFromApiAsync('6619483');
+  const locationIds = [
+    '6619483', // Kaleen
+    '2147714', // Sydney,
+    '2174003', // Brisbane
+  ];
+  const weather = await service.getWeatherArrayFromApiAsync(locationIds);
   return {
     type: 'WEATHER_GET_ALL',
     data: weather

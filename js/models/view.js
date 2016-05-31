@@ -24,5 +24,5 @@ export type WeatherObservation = {
 
 export type WeatherModel = {
   observation: WeatherObservation;
-  forecast: Array<WeatherForecast>
+  forecast: Array<WeatherForecast>;
 };
