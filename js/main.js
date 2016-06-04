@@ -4,16 +4,22 @@
 
 'use strict';
 
-import React from 'React';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import App from './app';
 
 import configureStore from './store/configure';
 import { setWeatherLoading } from './actions';
 
-function setup(): React.Component {
+type State = {
+  store: any;
+};
 
-  class Root extends React.Component {
+function setup() {
+
+  class Root extends Component {
+    state: State;
+
     constructor() {
       super();
 

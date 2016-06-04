@@ -1,11 +1,10 @@
-const React = require('react-native');
+import React, { Component } from 'react';
 const {
   Animated,
-  Component,
   Dimensions,
   ScrollView,
   View
-} = React;
+} = require('react-native');
 
 const styles = require('./parallaxviewstyles');
 

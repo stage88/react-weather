@@ -4,8 +4,8 @@
 
 'use strict';
 
-import React, {
-  Component,
+import React, { Component } from 'react';
+import {
   StyleSheet,
   Text,
   View,
@@ -42,19 +42,36 @@ type Props = {
   dispatch: any;
 };
 
+type State = {
+  isRefreshing: bool;
+};
+
 const HEADER_HEIGHT = 290;
 const TITLE_HEIGHT = 55;
 
 class Header extends Component {
   props: Props;
+  state: State;
 
   constructor(props: Props) {
     super(props);
+
+    this.state = {
+      isRefreshing: false
+    };
 
     (this: any).renderTitle = this.renderTitle.bind(this);
     (this: any).renderHeader = this.renderHeader.bind(this);
     (this: any).renderRefreshControl = this.renderRefreshControl.bind(this);
     (this: any).onRefresh = this.onRefresh.bind(this);
+  }
+
+  componentWillReceiveProps(next: Props) {
+    if (this.props.isRefreshing !== next.isRefreshing) {
+      this.setState({
+        isRefreshing: next.isRefreshing,
+      });
+    }
   }
 
   render() {
@@ -209,7 +226,7 @@ class Header extends Component {
   renderRefreshControl() {
     return (
       <RefreshControl
-        refreshing={this.props.isRefreshing}
+        refreshing={this.state.isRefreshing}
         onRefresh={this.onRefresh}
         tintColor='#fff'
         title='Loading...'

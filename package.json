@@ -6,13 +6,15 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "react": "^0.14.8",
-    "react-native": "^0.24.1",
+    "react": "15.0.2",
+    "react-native": "^0.26.3",
     "react-redux": "^4.4.5",
-    "react-swipeable-views": "^0.6.2",
-    "realm": "^0.11.1",
+    "realm": "^0.13.2",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {
+    "rnpm-plugin-upgrade": "^0.26.0"
   }
 }

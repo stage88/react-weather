@@ -4,7 +4,8 @@
 
 'use strict';
 
-import React, { Image } from 'react-native';
+import React, { Component } from 'react';
+import { Image } from 'react-native';
 
 function renderForecastImage(icon: string, width: number, height: number) {
   var image: number;

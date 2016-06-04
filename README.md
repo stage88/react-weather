@@ -33,7 +33,7 @@ The most reliable Australian weather data is hosted by Australian Bureau of Mete
 - [x] Create first actions, reducers
 - [x] Implement weather service 
 - [x] Add scroll view animations
-- [ ] Add pull to refresh 
+- [x] Add pull to refresh 
 - [ ] Implement basic settings UI prototype with navigation
 - [ ] Create settings repositories backed by Realm
 - [ ] Call Australian postcode APIs when adding locations
