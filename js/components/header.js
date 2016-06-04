@@ -44,6 +44,7 @@ type Props = {
 
 type State = {
   isRefreshing: bool;
+  shift: Animated.Value;
 };
 
 const HEADER_HEIGHT = 290;
@@ -57,9 +58,11 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      isRefreshing: false
+      isRefreshing: false,
+      shift: new Animated.Value(0)
     };
 
+    (this: any).onScroll = this.onScroll.bind(this);
     (this: any).renderTitle = this.renderTitle.bind(this);
     (this: any).renderHeader = this.renderHeader.bind(this);
     (this: any).renderRefreshControl = this.renderRefreshControl.bind(this);
@@ -75,6 +78,14 @@ class Header extends Component {
   }
 
   render() {
+    const translateY = this.state.shift.interpolate({
+      inputRange: [-HEADER_HEIGHT, 0, HEADER_HEIGHT / 2, HEADER_HEIGHT],
+      outputRange: [-30, 0, 25, 30],
+      extrapolate: 'clamp',
+    });
+    
+    const transform = [{translateY}];
+
     return (
       <ParallaxScrollView
         backgroundColor='#589BC7'
@@ -82,15 +93,20 @@ class Header extends Component {
         parallaxHeaderHeight={HEADER_HEIGHT}
         stickyHeaderHeight={TITLE_HEIGHT}
         showsVerticalScrollIndicator={false}
+        onScroll={this.onScroll}
         refreshControl={this.renderRefreshControl()}
         renderStickyHeader={this.renderTitle}
         renderForeground={this.renderHeader}
         renderBackground={this.renderBackground}>
-        <View style={styles.childrenView}>
+        <Animated.View style={[{transform}, styles.childrenView]}>
           { this.props.children }
-        </View>
+        </Animated.View>
       </ParallaxScrollView>
     );
+  }
+
+  onScroll(e) {
+    this.state.shift.setValue(e.nativeEvent.contentOffset.y);
   }
 
   renderBackground() {
