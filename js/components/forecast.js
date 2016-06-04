@@ -42,6 +42,10 @@ class Forecast extends Component {
   renderForecast() {
     return (
       this.props.forecast.map((item, index) => {
+        if (index === 0) {
+            return null;
+        };
+
         if (index < this.props.forecast.length - 1) {
           var separator = {
             borderColor: '#F4F4F4',
@@ -49,10 +53,11 @@ class Forecast extends Component {
           };
         }
 
+        var day = index === 1 ? 'Tomorrow' : item.day;
         return (
           <View key={item.day} style={[styles.forecastItem, separator]}>
             <View stye={styles.forecastItemDayView}>
-              <Text>{ item.day }</Text>
+              <Text>{ day }</Text>
             </View>
             <View style={styles.forecastItemDataView}>
               { renderForecastImage(item.icon, 20, 20) }

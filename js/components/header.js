@@ -11,12 +11,15 @@ import React, {
   View,
   Image,
   Animated,
-  Dimensions
+  Dimensions,
+  RefreshControl
 } from 'react-native';
 
 import { connect } from 'react-redux';
 
 import ParallaxScrollView from '../dependencies/parallaxview';
+
+import { getAllWeather, setWeatherRefreshing } from '../actions';
 import type { WeatherObservation, WeatherModel } from '../models/view';
 
 const renderForecastImage = require('./forecastimage')
@@ -28,6 +31,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 type Props = {
   isLoading: bool;
+  isRefreshing: bool;
   weather: Array<WeatherModel>;
   count: number;
   totalWidth: number;
@@ -35,6 +39,7 @@ type Props = {
   children: ?any;
   offset: Animated.Value;
   current: Animated.Value;
+  dispatch: any;
 };
 
 const HEADER_HEIGHT = 290;
@@ -48,6 +53,8 @@ class Header extends Component {
 
     (this: any).renderTitle = this.renderTitle.bind(this);
     (this: any).renderHeader = this.renderHeader.bind(this);
+    (this: any).renderRefreshControl = this.renderRefreshControl.bind(this);
+    (this: any).onRefresh = this.onRefresh.bind(this);
   }
 
   render() {
@@ -58,6 +65,7 @@ class Header extends Component {
         parallaxHeaderHeight={HEADER_HEIGHT}
         stickyHeaderHeight={TITLE_HEIGHT}
         showsVerticalScrollIndicator={false}
+        refreshControl={this.renderRefreshControl()}
         renderStickyHeader={this.renderTitle}
         renderForeground={this.renderHeader}
         renderBackground={this.renderBackground}>
@@ -192,6 +200,25 @@ class Header extends Component {
       </Animated.View>
     );
   }
+
+  onRefresh() {
+    this.props.dispatch(setWeatherRefreshing());
+    this.props.dispatch(getAllWeather());
+  }
+
+  renderRefreshControl() {
+    return (
+      <RefreshControl
+        refreshing={this.props.isRefreshing}
+        onRefresh={this.onRefresh}
+        tintColor='#fff'
+        title='Loading...'
+        titleColor='#ffffff'
+        colors={['#fff', '#eee', '#ddd']}
+        progressBackgroundColor='transparent'
+      />
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -294,13 +321,15 @@ const styles = StyleSheet.create({
   }
 });
 
-function select(store): Props {
+function select(store: any, props: Props): Props {
   return {
     isLoading: store.weather.isLoading,
+    isRefreshing: store.weather.isRefreshing,
     weather: store.weather.data,
     count: store.weather.data.length,
     totalWidth: SCREEN_WIDTH * store.weather.data.length,
     distanceToMiddle: SCREEN_WIDTH / 2,
+    ...props
   };
 }
 

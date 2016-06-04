@@ -11,9 +11,12 @@ const service = new WeatherService();
 
 async function getAllWeather() {
   const locationIds = [
-    '6619483', // Kaleen
+    '2172517', // Canberra
     '2147714', // Sydney,
     '2174003', // Brisbane
+    '2158177', // Melbourne,
+    '2063523', // Perth,
+    '2073124', // Darwin
   ];
   const weather = await service.getWeatherArrayFromApiAsync(locationIds);
   return {
@@ -28,7 +31,14 @@ function setWeatherLoading() {
   };
 }
 
+function setWeatherRefreshing() {
+  return {
+    type: 'WEATHER_SET_REFRESHING'
+  };
+}
+
 module.exports = {
   getAllWeather,
-  setWeatherLoading
+  setWeatherLoading,
+  setWeatherRefreshing
 }

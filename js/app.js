@@ -10,6 +10,8 @@ import React, {
   StyleSheet,
   View,
   Animated,
+  Image,
+  Text,
   Dimensions
 } from 'react-native';
 
@@ -20,7 +22,7 @@ import Header from './components/header';
 import Forecast from './components/forecast';
 
 import { getAllWeather } from './actions';
-import { WeatherModel } from './models/view'
+import type { WeatherModel } from './models/view'
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -59,7 +61,10 @@ class App extends Component {
   render() {
     if (this.props.isLoading === true) {
       return (
-        <View style={styles.loadingView}></View>
+        <View style={styles.loadingView}>
+          <Text style={styles.loadingText}>Loading...</Text>
+          <Image source={require('./components/img/sunny.gif')} />
+        </View>
       );
     }
 
@@ -101,7 +106,6 @@ class App extends Component {
   }
 
   onScroll(e) {
-    var value = (e.nativeEvent.contentOffset.x % SCREEN_WIDTH);
     this.state.shift.setValue(e.nativeEvent.contentOffset.x);
   }
 }
@@ -113,14 +117,21 @@ const styles = StyleSheet.create({
   },
   loadingView: {
     height: 290,
-    backgroundColor: '#589BC7'
+    backgroundColor: '#589BC7',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    color: '#fff',
+    marginBottom: 18
   }
 });
 
-function select(store): Props {
+function select(store: any, props: Props) {
   return {
     isLoading: store.weather.isLoading,
     weather: store.weather.data,
+    ...props
   };
 }
 
