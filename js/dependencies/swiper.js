@@ -288,7 +288,7 @@ module.exports = React.createClass({
     let step = dir == 'x' ? state.width : state.height
 
     // Do nothing if offset no change.
-    if(!diff) {
+    if(index > 0 && !diff) {
       return;
     }
 
