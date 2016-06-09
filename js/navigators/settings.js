@@ -14,6 +14,7 @@ import {
 import Settings from '../components/settings/settings';
 
 type Props = {
+  route: any;
   navigator: any;
 };
 
@@ -25,8 +26,7 @@ class SettingsNavigator extends Component {
         itemWrapperStyle={styles.content}
         style={styles.container}
         initialRoute={{
-          title: "Settings",
-          component: Settings,
+          ...this.props.route,
           passProps: {
             navigator: this
           }
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   content: {
-    flex: 1,
+    flex: 1
   }
 });
 

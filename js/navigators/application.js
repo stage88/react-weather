@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 
 import Weather from '../components/weather';
+import Settings from '../components/settings/settings';
+import Locations from '../components/settings/locations';
 import SettingsNavigator from '../navigators/settings';
 
 type Props = {};
@@ -47,7 +49,19 @@ class ApplicationNavigator extends Component {
   renderScene(route: any, navigator: Navigator) {
     if (route.settings) {
       return (
-        <SettingsNavigator navigator={navigator} />
+        <SettingsNavigator navigator={navigator} route={{
+          title: "Settings",
+          component: Settings
+        }} />
+      );
+    }
+
+    if (route.locations) {
+      return (
+        <SettingsNavigator navigator={navigator} route={{
+          title: "Locations",
+          component: Locations
+        }} />
       );
     }
 

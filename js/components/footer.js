@@ -15,14 +15,13 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import ApplicationNavigator from '../navigators/application';
 import Pager from './pager';
 import Settings from './settings/settings';
 
 type Props = {
   current: number;
   count: number;
-  navigator: ApplicationNavigator;
+  navigator: any;
 };
 
 class Footer extends Component {
@@ -30,13 +29,16 @@ class Footer extends Component {
     super(props);
 
     (this: any).navigateToSettings = this.navigateToSettings.bind(this);
+    (this: any).navigateToLocations = this.navigateToLocations.bind(this);
   }
 
   render() {
     return (
       <View style={styles.footer}>
         <View style={styles.left}>
-          <Icon name='ios-list' size={35} color='#8F97A4' />
+          <TouchableHighlight onPress={this.navigateToLocations}>
+            <Icon name='ios-list' size={35} color='#8F97A4' />
+          </TouchableHighlight>
         </View>
         <View style={styles.center}>
           <Pager current={this.props.current} count={this.props.count} />
@@ -53,6 +55,12 @@ class Footer extends Component {
   navigateToSettings() {
     this.props.navigator.push({
       settings: true
+    });
+  }
+
+  navigateToLocations() {
+    this.props.navigator.push({
+      locations: true
     });
   }
 }
