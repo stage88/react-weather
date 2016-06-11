@@ -11,15 +11,40 @@ import {
   View
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
 import Settings from '../components/settings/settings';
 
 type Props = {
   route: any;
   navigator: any;
 };
+type State = {
+  backIcon: any;
+};
 
 class SettingsNavigator extends Component {
+  props: Props;
+  state: State;
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      backIcon: null
+    };
+  }
+
+  componentWillMount() {
+    Icon.getImageSource('ios-close', 40, '#007AFF').then(
+      (source) => this.setState({ backIcon: source })
+    );
+  }
+
   render() {
+    if (!this.state.backIcon) {
+      return null;
+    }
+
     return (
       <NavigatorIOS
         ref="navigator"
@@ -27,6 +52,9 @@ class SettingsNavigator extends Component {
         style={styles.container}
         initialRoute={{
           ...this.props.route,
+          leftButtonTitle: '',
+          leftButtonIcon: this.state.backIcon,
+          onLeftButtonPress: this.props.navigator.pop,
           passProps: {
             navigator: this
           }

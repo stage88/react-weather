@@ -15,6 +15,7 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import AboutSettings from './about';
+import UserGuide from './userguide';
 
 type Props = {
   navigator: any;
@@ -27,24 +28,51 @@ class Settings extends Component {
     super(props);
 
     (this: any).close = this.close.bind(this);
-    (this: any).navigate = this.navigate.bind(this);
+    (this: any).navigateToUserGuide = this.navigateToUserGuide.bind(this);
+    (this: any).navigateToAbout = this.navigateToAbout.bind(this);
   }
 
   render() {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='default' backgroundColor='#000' />
-        <TouchableHighlight style={[styles.button, {marginTop: 300}]} onPress={this.navigate}>
-          <Text style={styles.buttonText}>About</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={[styles.button, {marginTop: 20}]} onPress={this.close}>
-          <Text style={styles.buttonText}>Close</Text>
-        </TouchableHighlight>
+        <View style={{paddingLeft: 14, paddingBottom: 8}}>
+          <Text style={{paddingTop: 36, color: '#6D6D72', fontSize: 12}}>HELP</Text>
+        </View>
+
+        <View style={{backgroundColor: '#fff', borderColor: '#C8C7CC', borderTopWidth: 0.5, borderBottomWidth: 0.5}}>
+          <TouchableHighlight style={{height: 44, flexDirection: 'column', justifyContent: 'center', backgroundColor: '#fff'}} onPress={this.navigateToUserGuide} underlayColor='#C8C7CC'>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingRight: 14, paddingLeft: 14}}>
+              <Text style={{fontSize: 16}}>User Guide</Text>
+              <Icon name='ios-arrow-forward' size={20} color='#C7C7CC' />
+            </View>
+          </TouchableHighlight>
+
+          <View style={{height: 0.5, backgroundColor: '#C8C7CC', marginLeft: 14}}></View>
+
+          <TouchableHighlight style={{height: 44, flexDirection: 'column', justifyContent: 'center', backgroundColor: '#fff'}} onPress={this.navigateToAbout} underlayColor='#C8C7CC'>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingRight: 14, paddingLeft: 14}}>
+              <Text style={{fontSize: 16}}>About</Text>
+              <Icon name='ios-arrow-forward' size={20} color='#C7C7CC' />
+            </View>
+          </TouchableHighlight>
+        </View>
+
       </View>
     );
   }
 
-  navigate() {
+  navigateToUserGuide() {
+    this.props.navigator.push({
+      title: "User Guide",
+      component: UserGuide,
+      passProps: {
+        navigator: this.props.navigator
+      }
+    });
+  }
+
+  navigateToAbout() {
     this.props.navigator.push({
       title: "About",
       component: AboutSettings,
@@ -63,8 +91,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: '#f8f8f8',
+    marginTop: 64,
   },
   button: {
     width: 200,

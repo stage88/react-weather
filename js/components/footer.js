@@ -36,7 +36,7 @@ class Footer extends Component {
     return (
       <View style={styles.footer}>
         <View style={styles.left}>
-          <TouchableHighlight onPress={this.navigateToLocations}>
+          <TouchableHighlight onPress={this.navigateToLocations} underlayColor='#fff'>
             <Icon name='ios-list' size={35} color='#8F97A4' />
           </TouchableHighlight>
         </View>
@@ -44,7 +44,7 @@ class Footer extends Component {
           <Pager current={this.props.current} count={this.props.count} />
         </View>
         <View style={styles.right}>
-          <TouchableHighlight onPress={this.navigateToSettings}>
+          <TouchableHighlight onPress={this.navigateToSettings} underlayColor='#fff'>
             <Icon name='ios-settings-outline' size={25} color='#8F97A4' />
           </TouchableHighlight>
         </View>

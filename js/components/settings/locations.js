@@ -30,9 +30,6 @@ class Locations extends Component {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='default' backgroundColor='#000' />
-        <TouchableHighlight style={[styles.button, {marginTop: 20}]} onPress={this.close}>
-          <Text style={styles.buttonText}>Close</Text>
-        </TouchableHighlight>
       </View>
     );
   }
