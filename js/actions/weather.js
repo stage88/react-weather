@@ -6,8 +6,10 @@
 
 import type { Action } from './types';
 import WeatherService from '../services/weather';
+import TestDataRepository from '../repositories/testdata';
 
 const service = new WeatherService();
+const testdata = new TestDataRepository();
 
 async function getAllWeather() {
   const locationIds = [
@@ -19,6 +21,8 @@ async function getAllWeather() {
     '2073124', // Darwin
   ];
   const weather = await service.getWeatherArrayFromApiAsync(locationIds);
+  //const weather = testdata.getAll();
+
   return {
     type: 'WEATHER_GET_ALL',
     data: weather
