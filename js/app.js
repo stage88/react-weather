@@ -15,7 +15,6 @@ import ApplicationNavigator from './navigators/application';
 
 class App extends Component {
   render() {
-<<<<<<< HEAD
     if (this.props.isLoading === true) {
       return (
         <View style={styles.loadingView}>
@@ -42,8 +41,6 @@ class App extends Component {
         { forecastItems }
       </Swiper>
     );
-=======
->>>>>>> origin/master
     return (
       <View style={styles.container}>
         <StatusBar translucent={true} backgroundColor='transparent' barStyle='light-content'/>
