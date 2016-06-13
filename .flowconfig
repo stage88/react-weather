@@ -63,6 +63,8 @@
 .*/node_modules/isemail/.*\.json
 .*/node_modules/tr46/.*\.json
 
+# Also ignore these
+.*/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental/NavigationHeaderTitle.js
 
 [include]
 

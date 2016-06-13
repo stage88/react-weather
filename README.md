@@ -11,6 +11,7 @@ The app architecture/structure is mostly based on ideas I've seen in the Faceboo
 + [Realm](https://realm.io/) for React Native is used to persist data
 + I used [Nuclide](http://nuclide.io/) and [Visual Studio Code](https://code.visualstudio.com/) on OSX, both have great support for React Native app development
 + I used git for version control, and stored progress on GitHub.
++ Currently only tested on an iOS device
 
 # APIs
 + Weather data is retrieved from http://openweathermap.org/
@@ -25,6 +26,9 @@ The most reliable Australian weather data is hosted by Australian Bureau of Mete
 + [react-native-parallax-scroll-view](https://github.com/jaysoo/react-native-parallax-scroll-view): A ScrollView-like component with parallax and sticky header support. I use a customised version of the component to modify behaviour of animations.
 + [react-swipeable-views](https://github.com/oliviertassinari/react-swipeable-views): A React component for swipeable views
 
+# Weather images
+Images are used _without permission_ from Google Weather, for example: [Canberra Weather](https://www.google.com.au/?gws_rd=ssl#safe=active&q=Canberra+weather).
+
 # Current progress
 - [x] App skeleton
 - [x] Basic UI prototype
@@ -35,8 +39,10 @@ The most reliable Australian weather data is hosted by Australian Bureau of Mete
 - [x] Add scroll view animations
 - [x] Add pull to refresh 
 - [x] Implement basic settings UI prototype with navigation
+- [ ] Create location and weather repositories backed by Realm
 - [ ] Create settings repositories backed by Realm
 - [ ] Call Australian postcode APIs when adding locations
+- [ ] Add support for Android devices
 
 Pocket Weather | React Weather
 -------------- | --------------
