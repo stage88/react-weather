@@ -85,7 +85,6 @@ class App extends Component {
         { forecastItems }
       </Swiper>
     );
-
     return (
       <View style={styles.container}>
         <StatusBar translucent={true} backgroundColor='transparent' barStyle='light-content'/>

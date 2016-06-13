@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -349,7 +350,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 610;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -583,10 +584,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactWeather.app/ReactWeather";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-lc++",
-				);
 			};
 			name = Debug;
 		};
@@ -600,10 +597,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactWeather.app/ReactWeather";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-lc++",
-				);
 			};
 			name = Release;
 		};
@@ -619,10 +612,10 @@
 				);
 				INFOPLIST_FILE = "ReactWeather/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-				);
+        OTHER_LDFLAGS = (
+          "-ObjC",
+          "-lc++",
+        );
 				PRODUCT_NAME = ReactWeather;
 			};
 			name = Debug;
@@ -638,10 +631,10 @@
 				);
 				INFOPLIST_FILE = "ReactWeather/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-				);
+        OTHER_LDFLAGS = (
+          "-ObjC",
+          "-lc++",
+        );
 				PRODUCT_NAME = ReactWeather;
 			};
 			name = Release;
