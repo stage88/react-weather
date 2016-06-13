@@ -34,13 +34,13 @@ The most reliable Australian weather data is hosted by Australian Bureau of Mete
 - [x] Implement weather service 
 - [x] Add scroll view animations
 - [x] Add pull to refresh 
-- [ ] Implement basic settings UI prototype with navigation
+- [x] Implement basic settings UI prototype with navigation
 - [ ] Create settings repositories backed by Realm
 - [ ] Call Australian postcode APIs when adding locations
 
 Pocket Weather | React Weather
 -------------- | --------------
-<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pocket-weather-1.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/react-weather-2.png" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pocket-weather-1.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/react-weather-3.png" width="300">
 
 # Running
 
@@ -73,3 +73,7 @@ module.exports = {
 ## License
 
 Released under the [MIT License](http://opensource.org/licenses/MIT).
+
+# Feedback
+
+Feedback is always welcome. Feel free to contact me, I would love to know if you notice something that can be done better. Please be nice, this is my first React Native app.

@@ -4,68 +4,386 @@
 
 'use strict';
 
-import type {
-  WeatherForecast,
-  WeatherObservation,
-  WeatherModel
-} from '../models/view';
-
 class TestDataRepository {
-  getAll(): WeatherModel {
-    return {
-      observation: this._getObservation(),
-      forecast: this._getForecast()
-    }
-  }
-
-  _getObservation(): WeatherObservation {
-    return {
-      location: 'Canberra',
-      forecast: 'Partly Cloudy',
-      feelsLike: '7.9',
-      current: '11.0',
-      low: '4',
-      high: '23'
-    };
-  }
-
-  _getForecast(): Array<WeatherForecast> {
+  getAll() {
     return [
       {
-        day: 'Tomorrow',
-        forecast: 'Partly Cloudy',
-        low: '3',
-        high: '20'
+        "id":"2172517",
+        "observation":{
+          "location":"Canberra",
+          "forecast":"Clouds",
+          "feelsLike":10,
+          "current":17,
+          "low":11,
+          "high":17,
+          "icon":"10d"
+        },
+        "forecast":[
+          {
+            "day":"Monday",
+            "forecast":"Rain",
+            "low":11,
+            "high":17,
+            "icon":"10d"
+          },
+          {
+            "day":"Tuesday",
+            "forecast":"Rain",
+            "low":7,
+            "high":8,
+            "icon":"10d"
+          },
+          {
+            "day":"Wednesday",
+            "forecast":"Rain",
+            "low":8,
+            "high":10,
+            "icon":"10d"
+          },
+          {
+            "day":"Thursday",
+            "forecast":"Rain",
+            "low":8,
+            "high":10,
+            "icon":"10d"
+          },
+          {
+            "day":"Friday",
+            "forecast":"Rain",
+            "low":5,
+            "high":10,
+            "icon":"10d"
+          },
+          {
+            "day":"Saturday",
+            "forecast":"Rain",
+            "low":3,
+            "high":10,
+            "icon":"10d"
+          },
+          {
+            "day":"Sunday",
+            "forecast":"Rain",
+            "low":2,
+            "high":9,
+            "icon":"10d"
+          }
+        ]
       },
       {
-        day: 'Saturday',
-        forecast: 'Sunny',
-        low: '6',
-        high: '17'
+        "id":"2147714",
+        "observation":{
+          "location":"Sydney",
+          "forecast":"Clear",
+          "feelsLike":12,
+          "current":13,
+          "low":13,
+          "high":14,
+          "icon":"10n"
+        },
+        "forecast":[
+          {
+            "day":"Monday",
+            "forecast":"Rain",
+            "low":13,
+            "high":14,
+            "icon":"10n"
+          },
+          {
+            "day":"Tuesday",
+            "forecast":"Clear",
+            "low":14,
+            "high":17,
+            "icon":"01d"
+          },
+          {
+            "day":"Wednesday",
+            "forecast":"Clear",
+            "low":15,
+            "high":17,
+            "icon":"01d"
+          },
+          {
+            "day":"Thursday",
+            "forecast":"Rain",
+            "low":14,
+            "high":18,
+            "icon":"10d"
+          },
+          {
+            "day":"Friday",
+            "forecast":"Rain",
+            "low":14,
+            "high":16,
+            "icon":"10d"
+          },
+          {
+            "day":"Saturday",
+            "forecast":"Rain",
+            "low":13,
+            "high":15,
+            "icon":"10d"
+          },
+          {
+            "day":"Sunday",
+            "forecast":"Rain",
+            "low":13,
+            "high":16,
+            "icon":"10d"
+          }
+        ]
       },
       {
-        day: 'Sunday',
-        forecast: 'Rain',
-        low: '1',
-        high: '15'
+        "id":"2174003",
+        "observation":{
+          "location":"Brisbane",
+          "forecast":"Clear",
+          "feelsLike":12,
+          "current":14,
+          "low":14,
+          "high":15,
+          "icon":"01n"
+        },
+        "forecast":[
+          {
+            "day":"Monday",
+            "forecast":"Clear",
+            "low":14,
+            "high":15,
+            "icon":"01n"
+          },
+          {
+            "day":"Tuesday",
+            "forecast":"Clear",
+            "low":11,
+            "high":17,
+            "icon":"01d"
+          },
+          {
+            "day":"Wednesday",
+            "forecast":"Clear",
+            "low":10,
+            "high":19,
+            "icon":"01d"
+          },
+          {
+            "day":"Thursday",
+            "forecast":"Clear",
+            "low":13,
+            "high":23,
+            "icon":"01d"
+          },
+          {
+            "day":"Friday",
+            "forecast":"Clear",
+            "low":17,
+            "high":23,
+            "icon":"01d"
+          },
+          {
+            "day":"Saturday",
+            "forecast":"Clear",
+            "low":15,
+            "high":18,
+            "icon":"01d"
+          },
+          {
+            "day":"Sunday",
+            "forecast":"Rain",
+            "low":16,
+            "high":20,
+            "icon":"10d"
+          }
+        ]
       },
       {
-        day: 'Monday',
-        forecast: 'Mostly Sunny',
-        low: '6',
-        high: '17'
+        "id":"2158177",
+        "observation":{
+          "location":"Melbourne",
+          "forecast":"Clouds",
+          "feelsLike":10,
+          "current":10,
+          "low":9,
+          "high":10,
+          "icon":"10d"
+        },
+        "forecast":[
+          {
+            "day":"Monday",
+            "forecast":"Rain",
+            "low":9,
+            "high":10,
+            "icon":"10d"
+          },
+          {
+            "day":"Tuesday",
+            "forecast":"Rain",
+            "low":10,
+            "high":11,
+            "icon":"10d"
+          },
+          {
+            "day":"Wednesday",
+            "forecast":"Rain",
+            "low":7,
+            "high":12,
+            "icon":"10d"
+          },
+          {
+            "day":"Thursday",
+            "forecast":"Rain",
+            "low":11,
+            "high":13,
+            "icon":"10d"
+          },
+          {
+            "day":"Friday",
+            "forecast":"Rain",
+            "low":10,
+            "high":12,
+            "icon":"10d"
+          },
+          {
+            "day":"Saturday",
+            "forecast":"Rain",
+            "low":9,
+            "high":12,
+            "icon":"10d"
+          },
+          {
+            "day":"Sunday",
+            "forecast":"Rain",
+            "low":9,
+            "high":14,
+            "icon":"10d"
+          }
+        ]
       },
       {
-        day: 'Tuesday',
-        forecast: 'Cloudy',
-        low: '6',
-        high: '17'
+        "id":"2063523",
+        "observation":{
+          "location":"Perth",
+          "forecast":"Rain",
+          "feelsLike":15,
+          "current":15,
+          "low":12,
+          "high":16,
+          "icon":"10d"
+        },
+        "forecast":[
+          {
+            "day":"Monday",
+            "forecast":"Rain",
+            "low":12,
+            "high":16,
+            "icon":"10d"
+          },
+          {
+            "day":"Tuesday",
+            "forecast":"Rain",
+            "low":10,
+            "high":11,
+            "icon":"10d"
+          },
+          {
+            "day":"Wednesday",
+            "forecast":"Clouds",
+            "low":10,
+            "high":15,
+            "icon":"03d"
+          },
+          {
+            "day":"Thursday",
+            "forecast":"Clear",
+            "low":7,
+            "high":16,
+            "icon":"01d"
+          },
+          {
+            "day":"Friday",
+            "forecast":"Clear",
+            "low":7,
+            "high":18,
+            "icon":"01d"
+          },
+          {
+            "day":"Saturday",
+            "forecast":"Rain",
+            "low":10,
+            "high":18,
+            "icon":"10d"
+          },
+          {
+            "day":"Sunday",
+            "forecast":"Rain",
+            "low":14,
+            "high":18,
+            "icon":"10d"
+          }
+        ]
       },
       {
-        day: 'Wednesday',
-        forecast: 'Possible Shower',
-        low: '13',
-        high: '24'
+        "id":"2073124",
+        "observation":{
+          "location":"Darwin",
+          "forecast":"Clouds",
+          "feelsLike":30,
+          "current":30,
+          "low":29,
+          "high":30,
+          "icon":"01d"
+        },
+        "forecast":[
+          {
+            "day":"Monday",
+            "forecast":"Clear",
+            "low":29,
+            "high":30,
+            "icon":"01d"
+          },
+          {
+            "day":"Tuesday",
+            "forecast":"Clear",
+            "low":28,
+            "high":29,
+            "icon":"01d"
+          },
+          {
+            "day":"Wednesday",
+            "forecast":"Clear",
+            "low":27,
+            "high":29,
+            "icon":"01d"
+          },
+          {
+            "day":"Thursday",
+            "forecast":"Clear",
+            "low":27,
+            "high":32,
+            "icon":"01d"
+          },
+          {
+            "day":"Friday",
+            "forecast":"Rain",
+            "low":27,
+            "high":33,
+            "icon":"10d"
+          },
+          {
+            "day":"Saturday",
+            "forecast":"Rain",
+            "low":27,
+            "high":32,
+            "icon":"10d"
+          },
+          {
+            "day":"Sunday",
+            "forecast":"Clear",
+            "low":27,
+            "high":31,
+            "icon":"01d"
+          }
+        ]
       }
     ];
   }
