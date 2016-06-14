@@ -126,6 +126,7 @@ module.exports = React.createClass({
     renderPagination                 : React.PropTypes.func,
     onScroll                         : React.PropTypes.func,
     onSelectedIndexChange            : React.PropTypes.func,
+    onAndroidScroll                  : React.PropTypes.func,
   },
 
   mixins: [TimerMixin],
@@ -454,6 +455,11 @@ module.exports = React.createClass({
       </View>
     )
   },
+
+  onAndroidScroll(e) {
+    this.props.onAndroidScroll && this.props.onAndroidScroll(e);
+  },
+
   renderScrollView(pages) {
      if (Platform.OS === 'ios')
          return (
@@ -471,6 +477,7 @@ module.exports = React.createClass({
           {...this.props}
             initialPage={this.state.index}
             onPageSelected={this.onScrollEnd}
+            onPageScroll={this.props.onAndroidScroll}
             style={{flex: 1}}>
             {pages}
          </ViewPagerAndroid>

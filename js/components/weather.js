@@ -53,6 +53,7 @@ class Weather extends Component {
     };
 
     (this: any).onScroll = this.onScroll.bind(this);
+    (this: any).onAndroidScroll = this.onAndroidScroll.bind(this);
     (this: any).renderPagination = this.renderPagination.bind(this);
     (this: any).onSelectedIndexChange = this.onSelectedIndexChange.bind(this);
   }
@@ -82,6 +83,7 @@ class Weather extends Component {
         showsPagination={true}
         loop={false}
         onScroll={this.onScroll}
+        onAndroidScroll={this.onAndroidScroll}
         renderPagination={this.renderPagination}
         onSelectedIndexChange={this.onSelectedIndexChange}
         scrollEventThrottle={32}>
@@ -103,7 +105,6 @@ class Weather extends Component {
   }
 
   onSelectedIndexChange(index, offset) {
-    this.state.shift.setValue(index * SCREEN_WIDTH);
     this.setState({current: index});
   }
 
@@ -113,6 +114,10 @@ class Weather extends Component {
 
   onScroll(e) {
     this.state.shift.setValue(e.nativeEvent.contentOffset.x);
+  }
+
+  onAndroidScroll(e) {
+    this.state.shift.setValue(e.nativeEvent.position * SCREEN_WIDTH + e.nativeEvent.offset * SCREEN_WIDTH);
   }
 }
 
