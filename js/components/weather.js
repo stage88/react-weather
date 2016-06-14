@@ -117,7 +117,7 @@ class Weather extends Component {
   }
 
   onAndroidScroll(e) {
-    this.state.shift.setValue(e.nativeEvent.position * SCREEN_WIDTH + e.nativeEvent.offset * SCREEN_WIDTH);
+    this.state.shift.setValue((e.nativeEvent.position + e.nativeEvent.offset) * SCREEN_WIDTH);
   }
 }
 
