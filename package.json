@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "15.1.0",
     "react-native": "^0.27.2",
+    "react-native-action-button": "^1.1.5",
     "react-native-vector-icons": "^2.0.3",
     "react-redux": "^4.4.5",
     "realm": "^0.13.2",

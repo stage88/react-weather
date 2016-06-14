@@ -6,6 +6,7 @@
 
 import StatusBar from 'StatusBar';
 import React, { Component } from 'react';
+import ActionButton from 'react-native-action-button';
 import {
   StyleSheet,
   View,
@@ -67,7 +68,7 @@ class Weather extends Component {
       return (
         <View style={styles.loadingView}>
           <Text style={styles.loadingText}>Loading...</Text>
-          <Image source={require('./img/sunny.gif')} />
+          <Image source={require('./img/sunny-gif.gif')} />
         </View>
       );
     }
@@ -100,6 +101,10 @@ class Weather extends Component {
           current={this.state.current}
           count={this.props.count}
           navigator={this.props.navigator} />
+          <ActionButton
+            buttonColor="rgba(231,76,60,1)"
+              onPress={() => { console.log("hi")}}
+          />
       </View>
     );
   }

@@ -8,7 +8,12 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   NavigatorIOS,
-  View
+  Navigator,
+  View,
+  Platform,
+  ToolbarAndroid,
+  StatusBar,
+  BackAndroid
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -45,6 +50,21 @@ class SettingsNavigator extends Component {
       return null;
     }
 
+    if(Platform.OS === 'android') {
+      var ChildComponent = this.props.route.component;
+
+      return (
+        <View style={{flexDirection: 'column', backgroundColor:'white', flex:1}}>
+        <StatusBar barStyle='default' backgroundColor='#000' />
+        <ToolbarAndroid
+          title={this.props.route.title}
+          style={{height: 56, marginTop:24}}
+          />
+          <ChildComponent navigator = {this.props.navigator}
+          />
+          </View>
+      );
+    }
     return (
       <NavigatorIOS
         ref="navigator"

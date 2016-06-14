@@ -7,7 +7,8 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Navigator
+  Navigator,
+  BackAndroid
 } from 'react-native';
 
 import Weather from '../components/weather';
@@ -23,6 +24,23 @@ class ApplicationNavigator extends Component {
 
     (this: any).renderScene = this.renderScene.bind(this);
   }
+
+  componentDidMount() {
+        var navigator = this._navigator;
+        BackAndroid.addEventListener('hardwareBackPress', function() {
+          global.log('bbbb');
+            if (navigator && navigator.getCurrentRouters().length > 1) {
+                navigator.pop();
+                return true;
+            }
+            global.log('bbbb2');
+            return false;
+        })
+    }
+
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('hardwareBackPress');
+    }
 
   render() {
     return (
