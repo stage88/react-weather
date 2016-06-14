@@ -38,7 +38,7 @@ type Props = {
   distanceToMiddle: number;
   children: ?any;
   offset: Animated.Value;
-  current: Animated.Value;
+  current: number;
   dispatch: any;
 };
 
@@ -84,6 +84,7 @@ class Header extends Component {
     });
 
     const transform = [{translateY}];
+
     return (
       <ParallaxScrollView
         backgroundColor='#589BC7'

@@ -103,7 +103,8 @@ class Weather extends Component {
   }
 
   onSelectedIndexChange(index, offset) {
-    this.setState({current: index})
+    this.state.shift.setValue(index * SCREEN_WIDTH);
+    this.setState({current: index});
   }
 
   renderPagination(index, state, context) {
