@@ -4,53 +4,22 @@
 
 'use strict';
 
-class Observation {
-  schema: {
-    name: 'Observation',
-    properties: {
-      forecast: 'string',
-      feelsLike: 'string',
-      current: 'string',
-      low: 'string',
-      high: 'string',
-      icon: 'string'
-    }
+import schema_v1 from './schema-v1';
+import schema_v2 from './schema-v2';
+
+class Schema {
+  schemas: Array<any>;
+
+  constructor() {
+    this.schemas = [
+      schema_v1,
+      schema_v2
+    ];
+  }
+
+  current() {
+    return this.schemas[this.schemas.length - 1];
   }
 }
 
-class Forecast {
-  schema: {
-    name: 'Forecast',
-    properties: {
-      day: 'string',
-      forecast: 'string',
-      low: 'string',
-      high: 'string',
-      icon: 'string'
-    }
-  }
-}
-
-class Location {
-  schema: {
-    name: 'Location',
-    properties: {
-      name: 'string',
-      postcode: 'string',
-      state: 'string',
-      openWeatherId: 'string',
-      freshness: 'date',
-      observation: 'Observation',
-      forecast: {
-        type: 'list',
-        objectType: 'Forecast'
-      }
-    }
-  }
-}
-
-module.exports = {
-  Observation,
-  Forecast,
-  Location
-}
+module.exports = Schema;

@@ -22,7 +22,6 @@ import Header from './header';
 import Footer from './footer';
 import Forecast from './forecast';
 
-import { getAllWeather } from '../actions';
 import type { WeatherModel } from '../models/view'
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -55,10 +54,6 @@ class Weather extends Component {
     (this: any).onScroll = this.onScroll.bind(this);
     (this: any).renderPagination = this.renderPagination.bind(this);
     (this: any).onSelectedIndexChange = this.onSelectedIndexChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.dispatch(getAllWeather());
   }
 
   render() {

@@ -4,7 +4,7 @@
 
 'use strict';
 
-class TestDataRepository {
+class TestDataService {
   getAll() {
     return [
       {
@@ -389,4 +389,4 @@ class TestDataRepository {
   }
 }
 
-module.exports = TestDataRepository;
+module.exports = TestDataService;
