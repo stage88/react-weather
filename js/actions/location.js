@@ -6,12 +6,13 @@
 
 import type { Action } from './types';
 import { getAllWeather } from './weather';
+
 import LocationService from '../services/location';
+const service = new LocationService();
 
 function initaliseLocations() {
   return (dispatch: any) => {
-    var locations = new LocationService();
-    locations.initialise().then(
+    service.initialise().then(
       (result) => {
         dispatch({
           type: 'LOCATION_INITIALISED'

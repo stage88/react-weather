@@ -14,10 +14,8 @@ import dateFormat from 'dateformat';
 import TestDataService from '../services/testdata';
 const testdata = new TestDataService();
 
-const maxAgeInSeconds = (5 * 60); // 5 minutes
-
 class WeatherService {
-  async getAllWeather() {
+  async getAllWeather(forceUpdate: bool) {
     if (isDebugData) {
       return testdata.getAll();
     }
@@ -31,7 +29,7 @@ class WeatherService {
         var location = locations[i];
 
         var result;
-        if (location.weather && (this.getAgeInSeconds(location.weather.freshness) < maxAgeInSeconds)) {
+        if (forceUpdate === false && location.weather) {
           result = this.getWeatherFromContext(location);
         } else {
           result = await this.getWeatherFromApiAsync(location.openWeatherId);
@@ -50,6 +48,7 @@ class WeatherService {
   getWeatherFromContext(location: any) {
     return {
       id: location.openWeatherId,
+      freshness: location.weather.freshness,
       observation: {
         location: location.name,
         forecast: location.weather.observation.forecast,
@@ -74,7 +73,7 @@ class WeatherService {
   updateWeatherInContext(location: any, weather: any, context: any) {
     context.write(() => {
       location.weather = {
-        freshness: new Date(),
+        freshness: weather.freshness,
         observation: {
           forecast: weather.observation.forecast,
           feelsLike: weather.observation.feelsLike.toString(),
@@ -125,6 +124,7 @@ class WeatherService {
 
     var result = {
       id: locationId,
+      freshness: new Date(),
       observation: observation,
       forecast: forecast
     };
@@ -172,10 +172,6 @@ class WeatherService {
     } catch(error) {
       global.log(error);
     }
-  }
-
-  getAgeInSeconds(freshness: Date) {
-    return Math.floor((Date.now() - freshness.getTime()) / 1000);
   }
 
   getDayFromUtcDate(date: number): string {

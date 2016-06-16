@@ -23,6 +23,7 @@ export type WeatherObservation = {
 };
 
 export type WeatherModel = {
+  freshness: Date;
   observation: WeatherObservation;
   forecast: Array<WeatherForecast>;
 };
