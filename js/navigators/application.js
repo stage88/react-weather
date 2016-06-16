@@ -28,12 +28,12 @@ class ApplicationNavigator extends Component {
   componentDidMount() {
         var navigator = this._navigator;
         BackAndroid.addEventListener('hardwareBackPress', function() {
-          global.log('bbbb');
+
             if (navigator && navigator.getCurrentRouters().length > 1) {
                 navigator.pop();
                 return true;
             }
-            global.log('bbbb2');
+        
             return false;
         })
     }

@@ -4,20 +4,102 @@
 
 'use strict';
 
+import realm from '../realm';
 import { weatherApiKey, weatherApiUrl } from '../config';
 import type { WeatherModel, WeatherObservation, WeatherForecast } from '../models/view';
+import { isDebugData } from '../config';
 
 import dateFormat from 'dateformat';
 
+import TestDataService from '../services/testdata';
+const testdata = new TestDataService();
+
+const maxAgeInSeconds = (5 * 60); // 5 minutes
+
 class WeatherService {
-  // getWeatherFromApi(locationId: string) {
-  //   const promise = this.getWeatherFromApiAsync(locationId);
-  //   promise.then(function(result) {
-  //     return result;
-  //   }, function(error) {
-  //     return null;
-  //   });
-  // }
+  async getAllWeather() {
+    if (isDebugData) {
+      return testdata.getAll();
+    }
+
+    var data = [];
+    let context = realm.current();
+    try {
+      let locations = context.objects('Location');
+
+      for (var i = 0; i < locations.length; i++) {
+        var location = locations[i];
+
+        var result;
+        if (location.weather && (this.getAgeInSeconds(location.weather.freshness) < maxAgeInSeconds)) {
+          result = this.getWeatherFromContext(location);
+        } else {
+          result = await this.getWeatherFromApiAsync(location.openWeatherId);
+          this.updateWeatherInContext(location, result, context)
+        }
+
+        data.push(result);
+      }
+    } finally {
+      context.close();
+    }
+
+    return data;
+  }
+
+  getWeatherFromContext(location: any) {
+    return {
+      id: location.openWeatherId,
+      observation: {
+        location: location.name,
+        forecast: location.weather.observation.forecast,
+        feelsLike: location.weather.observation.feelsLike,
+        current: location.weather.observation.current,
+        low: location.weather.observation.low,
+        high: location.weather.observation.high,
+        icon: location.weather.observation.icon
+      },
+      forecast: location.weather.forecast.map((item) => {
+        return {
+          day: item.day,
+          forecast: item.forecast,
+          low: item.low,
+          high: item.high,
+          icon: item.icon
+        }
+      })
+    }
+  }
+
+  updateWeatherInContext(location: any, weather: any, context: any) {
+    context.write(() => {
+      location.weather = {
+        freshness: new Date(),
+        observation: {
+          forecast: weather.observation.forecast,
+          feelsLike: weather.observation.feelsLike.toString(),
+          current: weather.observation.current.toString(),
+          low: weather.observation.low.toString(),
+          high: weather.observation.high.toString(),
+          icon: weather.observation.icon
+        }
+      }
+
+      while(location.weather.forecast.length > 0) {
+        location.weather.forecast.pop();
+      }
+
+      weather.forecast.forEach((item) => {
+        location.weather.forecast.push({
+          day: item.day,
+          forecast: item.forecast,
+          low: item.low.toString(),
+          high: item.high.toString(),
+          icon: item.icon
+        })
+      });
+    });
+  }
 
   async getWeatherArrayFromApiAsync(locationIds: Array<string>) {
     var data = [];
@@ -67,7 +149,6 @@ class WeatherService {
         icon: ''
       };
     } catch(error) {
-      // Handle error
       global.log(error);
     }
   }
@@ -89,9 +170,12 @@ class WeatherService {
         }
       });
     } catch(error) {
-      // Handle error
       global.log(error);
     }
+  }
+
+  getAgeInSeconds(freshness: Date) {
+    return Math.floor((Date.now() - freshness.getTime()) / 1000);
   }
 
   getDayFromUtcDate(date: number): string {

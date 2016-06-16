@@ -23,7 +23,6 @@ import Header from './header';
 import Footer from './footer';
 import Forecast from './forecast';
 
-import { getAllWeather } from '../actions';
 import type { WeatherModel } from '../models/view'
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -59,16 +58,14 @@ class Weather extends Component {
     (this: any).onSelectedIndexChange = this.onSelectedIndexChange.bind(this);
   }
 
-  componentDidMount() {
-    this.props.dispatch(getAllWeather());
-  }
-
   render() {
     if (this.props.isLoading === true) {
       return (
         <View style={styles.loadingView}>
-          <Text style={styles.loadingText}>Loading...</Text>
-          <Image source={require('./img/sunny-gif.gif')} />
+          <View style={styles.loadingHeader}>
+            <Text style={styles.loadingText}>Loading...</Text>
+            <Image source={require('./img/sunny-gif.gif')} />
+          </View>
         </View>
       );
     }
@@ -132,6 +129,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9F9F9'
   },
   loadingView: {
+    backgroundColor: '#fff',
+    flex: 1
+  },
+  loadingHeader: {
     height: 290,
     backgroundColor: '#589BC7',
     justifyContent: 'center',
