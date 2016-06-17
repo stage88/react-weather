@@ -6,6 +6,7 @@
 
 import StatusBar from 'StatusBar';
 import React, { Component } from 'react';
+import ActionButton from 'react-native-action-button';
 import {
   StyleSheet,
   View,
@@ -52,6 +53,7 @@ class Weather extends Component {
     };
 
     (this: any).onScroll = this.onScroll.bind(this);
+    (this: any).onAndroidScroll = this.onAndroidScroll.bind(this);
     (this: any).renderPagination = this.renderPagination.bind(this);
     (this: any).onSelectedIndexChange = this.onSelectedIndexChange.bind(this);
   }
@@ -62,7 +64,7 @@ class Weather extends Component {
         <View style={styles.loadingView}>
           <View style={styles.loadingHeader}>
             <Text style={styles.loadingText}>Loading...</Text>
-            <Image source={require('./img/sunny.gif')} />
+            <Image source={require('./img/sunny-gif.gif')} />
           </View>
         </View>
       );
@@ -79,6 +81,7 @@ class Weather extends Component {
         showsPagination={true}
         loop={false}
         onScroll={this.onScroll}
+        onAndroidScroll={this.onAndroidScroll}
         renderPagination={this.renderPagination}
         onSelectedIndexChange={this.onSelectedIndexChange}
         scrollEventThrottle={32}>
@@ -95,12 +98,16 @@ class Weather extends Component {
           current={this.state.current}
           count={this.props.count}
           navigator={this.props.navigator} />
+          <ActionButton
+            buttonColor="rgba(231,76,60,1)"
+              onPress={() => { console.log("hi")}}
+          />
       </View>
     );
   }
 
   onSelectedIndexChange(index, offset) {
-    this.setState({current: index})
+    this.setState({current: index});
   }
 
   renderPagination(index, state, context) {
@@ -109,6 +116,10 @@ class Weather extends Component {
 
   onScroll(e) {
     this.state.shift.setValue(e.nativeEvent.contentOffset.x);
+  }
+
+  onAndroidScroll(e) {
+    this.state.shift.setValue((e.nativeEvent.position + e.nativeEvent.offset) * SCREEN_WIDTH);
   }
 }
 

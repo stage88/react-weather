@@ -34,7 +34,7 @@ class Settings extends Component {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='default' backgroundColor='#000' />
-      
+
         <View style={styles.sectionTitle}>
           <Text style={styles.sectionTitleText}>HELP</Text>
         </View>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#f8f8f8',
-    marginTop: 64,
+    marginTop: 0,
   },
   button: {
     width: 200,

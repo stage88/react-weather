@@ -4,10 +4,8 @@
 
 'use strict';
 
-// TODO: find out how to handle errors from require
-try {
-  var { weatherApiKey } = require('../release/keys');
-} catch (e) {}
+var { weatherApiKey } = require('./release/keys');
+// import { weatherApiKey } from './release/keys';
 
 module.exports = {
   weatherApiKey: weatherApiKey,

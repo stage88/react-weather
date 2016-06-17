@@ -38,7 +38,7 @@ type Props = {
   distanceToMiddle: number;
   children: ?any;
   offset: Animated.Value;
-  current: Animated.Value;
+  current: number;
   dispatch: any;
 };
 
@@ -56,7 +56,6 @@ class Header extends Component {
 
   constructor(props: Props) {
     super(props);
-
     this.state = {
       isRefreshing: false,
       shift: new Animated.Value(0)
@@ -83,7 +82,7 @@ class Header extends Component {
       outputRange: [-30, 0, 25, 30],
       extrapolate: 'clamp',
     });
-    
+
     const transform = [{translateY}];
 
     return (

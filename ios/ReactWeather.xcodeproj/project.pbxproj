@@ -438,7 +438,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 610;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -699,6 +699,7 @@
 				INFOPLIST_FILE = ReactWeatherTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -708,6 +709,7 @@
 					"$(inherited)",
 					"-lc++",
 				);
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactWeather.app/ReactWeather";
 			};
@@ -721,6 +723,7 @@
 				INFOPLIST_FILE = ReactWeatherTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -730,6 +733,7 @@
 					"$(inherited)",
 					"-lc++",
 				);
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactWeather.app/ReactWeather";
 			};
@@ -749,10 +753,10 @@
 				);
 				INFOPLIST_FILE = ReactWeather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-				);
+        OTHER_LDFLAGS = (
+          "-ObjC",
+          "-lc++",
+        );
 				PRODUCT_NAME = ReactWeather;
 			};
 			name = Debug;
@@ -770,10 +774,10 @@
 				);
 				INFOPLIST_FILE = ReactWeather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-				);
+        OTHER_LDFLAGS = (
+          "-ObjC",
+          "-lc++",
+        );
 				PRODUCT_NAME = ReactWeather;
 			};
 			name = Release;
