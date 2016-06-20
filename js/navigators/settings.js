@@ -62,6 +62,15 @@ class SettingsNavigator extends Component {
     );
   }
 
+  navigateTo(route: any) {
+    this.push({
+      ...route,
+      passProps: {
+        navigator: this
+      }
+    });
+  }
+
   push(route: any) {
     this.refs.navigator.push(route);
   }

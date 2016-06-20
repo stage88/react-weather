@@ -45,6 +45,49 @@ class LocationService {
     }
   }
 
+  getAllLocations() {
+    let context = realm.current();
+
+    var data = [];
+    try {
+      let locations = context.objects('Location');
+
+      for (var i = 0; i < locations.length; i++) {
+        var location = locations[i];
+        var item = {
+          name: location.name,
+          postcode: location.postcode,
+          state: location.state,
+          openWeatherId: location.openWeatherId,
+          observation: {
+            current: location.weather.observation.current,
+            low: location.weather.observation.low,
+            high: location.weather.observation.high,
+            icon: location.weather.observation.icon
+          }
+        }
+
+        data.push(item);
+      }
+    } finally {
+      context.close();
+    }
+
+    return data;
+  }
+
+  clearAllData() {
+    let context = realm.current();
+    try {
+      let locations = context.objects('Location');
+      context.write(() => {
+        context.delete(locations);
+      });
+    } finally {
+      context.close();
+    }
+  }
+
   async getLocationIdFromApi(location: string) {
     var url = `${weatherApiUrl}/find?q=${location},AU&type=accurate&units=metric&appid=${weatherApiKey}`;
     var locationId;

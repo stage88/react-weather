@@ -27,3 +27,11 @@ export type WeatherModel = {
   observation: WeatherObservation;
   forecast: Array<WeatherForecast>;
 };
+
+export type Location = {
+  name: string;
+  postcode: string;
+  state: string;
+  openWeatherId: string;
+  observation: WeatherObservation;
+};

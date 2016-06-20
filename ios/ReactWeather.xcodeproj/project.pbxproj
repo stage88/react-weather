@@ -23,6 +23,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		18928B09A42849778B92059D /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7161D4D4964C48B8886135F9 /* libRealmReact.a */; };
+		22AADE171D1508DA00BBF4F8 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		30A91A549D0E459CBA509319 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9F6D29F0B44E129537FF7B /* libRNVectorIcons.a */; };
 		36D88CDEF3DF43089218AEC2 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78860B6860314AA9BF29BEDE /* FontAwesome.ttf */; };
 		370F1B8542B2442F914DFD54 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7849EBE1A084485CBDB0ECA7 /* libc++.tbd */; };
@@ -615,6 +616,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22AADE171D1508DA00BBF4F8 /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				80E2FC0ABE2E4A818272051B /* Entypo.ttf in Resources */,

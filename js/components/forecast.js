@@ -57,12 +57,12 @@ class Forecast extends Component {
         return (
           <View key={item.day} style={[styles.forecastItem, separator]}>
             <View stye={styles.forecastItemDayView}>
-              <Text>{ day }</Text>
+              <Text style={styles.dayText}>{ day }</Text>
             </View>
             <View style={styles.forecastItemDataView}>
-              { renderForecastImage(item.icon, 20, 20) }
-              <Text style={styles.forecastItemTemp}>{ item.low }</Text>
-              <Text style={styles.forecastItemTemp}>{ item.high }</Text>
+              { renderForecastImage(item.icon, 22, 22) }
+              <Text style={styles.forecastItemTempLow}>{ item.low }</Text>
+              <Text style={styles.forecastItemTempHigh}>{ item.high }</Text>
             </View>
           </View>
         );
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     paddingRight: 12
   },
   forecastItem: {
-    paddingTop: 10,
-    paddingBottom: 8,
+    paddingTop: 14,
+    paddingBottom: 12,
     flexDirection: 'row'
   },
   forecastItemDayView: {
@@ -100,10 +100,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end'
   },
-  forecastItemTemp: {
+  dayText: {
+    fontSize: 16
+  },
+  forecastItemTempLow: {
     textAlign: 'right',
-    marginLeft: 14,
-    width: 18
+    marginLeft: 16,
+    width: 20,
+    color: '#B0B5BF',
+    fontSize: 16
+  },
+  forecastItemTempHigh: {
+    textAlign: 'right',
+    marginLeft: 16,
+    width: 20,
+    fontSize: 16
   }
 });
 

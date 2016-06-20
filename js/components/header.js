@@ -83,7 +83,7 @@ class Header extends Component {
       outputRange: [-30, 0, 25, 30],
       extrapolate: 'clamp',
     });
-    
+
     const transform = [{translateY}];
 
     return (
@@ -287,10 +287,12 @@ const styles = StyleSheet.create({
   stickyHeaderLocation: {
     color: '#fff',
     fontWeight: 'bold',
+    fontSize: 16,
     marginRight: 6
   },
   stickyHeaderToday: {
-    color: '#fff'
+    color: '#fff',
+    fontSize: 16
   },
   centerView: {
     flexDirection: 'row',
@@ -303,12 +305,13 @@ const styles = StyleSheet.create({
   },
   currentTemp: {
     color: '#fff',
-    fontSize: 44,
-    fontWeight: '300'
+    fontSize: 64,
+    fontWeight: '200'
   },
   feelsLike: {
     color: '#fff',
-    fontSize: 12
+    fontSize: 12,
+    fontWeight: '500'
   },
   bottomView: {
     flexDirection: 'row',
@@ -324,10 +327,12 @@ const styles = StyleSheet.create({
   bottomViewToday: {
     color: '#fff',
     fontWeight: 'bold',
-    marginRight: 6
+    marginRight: 6,
+    fontSize: 16
   },
   bottomViewTodayDate: {
-    color: '#fff'
+    color: '#fff',
+    fontSize: 16
   },
   bottomViewRight: {
     flex: 1,
@@ -336,17 +341,17 @@ const styles = StyleSheet.create({
   },
   low: {
     color: '#fff',
-    marginRight: 10,
+    marginRight: 12,
     fontSize: 18,
     fontWeight: '300',
-    width: 20,
+    width: 22,
     textAlign: 'right',
   },
   high: {
     color: '#fff',
-    fontWeight: '500',
+    fontWeight: '600',
     fontSize: 18,
-    width: 20,
+    width: 24,
     textAlign: 'right',
   },
   childrenView: {

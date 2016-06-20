@@ -81,7 +81,7 @@ class Weather extends Component {
         onScroll={this.onScroll}
         renderPagination={this.renderPagination}
         onSelectedIndexChange={this.onSelectedIndexChange}
-        scrollEventThrottle={32}>
+        scrollEventThrottle={8}>
         { forecastItems }
       </Swiper>
     );

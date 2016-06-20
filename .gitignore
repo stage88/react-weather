@@ -44,3 +44,4 @@ android/keystores/debug.keystore
 /release
 /logs
 /.vscode
+/ios/main.jsbundle
