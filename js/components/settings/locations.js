@@ -99,20 +99,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#f8f8f8',
-    //marginTop: 64,
-  },
-  button: {
-    width: 200,
-    height: 35,
-    backgroundColor: '#007AFF',
-    borderRadius: 2,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    color: '#fff'
+    backgroundColor: '#f8f8f8'
   },
   locationRow: {
     flexDirection: 'row',
