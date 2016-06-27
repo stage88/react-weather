@@ -46,7 +46,10 @@ Images are used _without permission_ from Google Weather, for example: [Canberra
 
 Pocket Weather | React Weather
 -------------- | --------------
-<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pocket-weather-1.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/react-weather-3.png" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-1.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-1.png" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-2.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-2.png" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-3.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-3.png" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-3.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-4.png" width="300">
 
 # Running
 
