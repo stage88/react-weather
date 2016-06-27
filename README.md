@@ -19,7 +19,7 @@ The app architecture/structure is mostly based on ideas I've seen in the Faceboo
 + You can see examples of API data in [react-weather/api](https://github.com/stage88/react-weather/tree/master/api)
 
 # Note about API data
-The weather data retrived from Open Weather is not very accurate. Most of the time, the weather forecast is not correct. 
+The weather data retrived from Open Weather is not very accurate. Most of the time, the weather forecast is not correct.
 The most reliable Australian weather data is hosted by Australian Bureau of Meteorology, however it is not very API friendly.  
 
 # External packages
@@ -35,21 +35,21 @@ Images are used _without permission_ from Google Weather, for example: [Canberra
 - [x] Call weather APIs for data
 - [x] Add React Redux, implement store
 - [x] Create first actions, reducers
-- [x] Implement weather service 
+- [x] Implement weather service
 - [x] Add scroll view animations
-- [x] Add pull to refresh 
+- [x] Add pull to refresh
 - [x] Implement basic settings UI prototype with navigation
-- [ ] Create location and weather repositories backed by Realm
+- [x] Create location and weather repositories backed by Realm
 - [ ] Create settings repositories backed by Realm
 - [ ] Call Australian postcode APIs when adding locations
 - [ ] Add support for Android devices
 
 Pocket Weather | React Weather
 -------------- | --------------
-<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-1.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-1.png" width="300">
-<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-2.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-2.png" width="300">
-<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-3.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-3.png" width="300">
-<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-3.png" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-4.png" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-1.PNG" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-1.PNG" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-2.PNG" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-2.PNG" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-3.PNG" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-3.PNG" width="300">
+<img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/pw-3.PNG" width="300"> | <img src="https://raw.githubusercontent.com/stage88/react-weather/master/screenshots/rw-4.PNG" width="300">
 
 # Running
 
