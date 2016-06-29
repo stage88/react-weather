@@ -12,28 +12,58 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   TextInput,
-  LayoutAnimation
+  LayoutAnimation,
+  ListView
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import defaultStyles from './styles';
+import { searchPostcodes, clearPostcodes } from '../../actions/postcode';
+import type { Postcode } from '../../models/view';
+
 import Icon from 'react-native-vector-icons/Ionicons';
+
+type Props = {
+  postcodes: Array<Postcode>;
+  dispatch: any;
+};
 
 type State = {
   isSearchActive: bool;
+  postcodeDataSource: any;
 };
 
 class AddLocation extends Component {
+  props: Props;
   state: State;
 
-  constructor() {
-    super();
+  constructor(props: Props) {
+    super(props);
+
+    let dataSource = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2
+    });
 
     this.state = {
-      isSearchActive: false
+      isSearchActive: false,
+      postcodeDataSource: this.cloneWithData(dataSource, props.postcodes)
     };
 
     (this: any).onSearchBarPressed = this.onSearchBarPressed.bind(this);
     (this: any).onSearchBarCancelPressed = this.onSearchBarCancelPressed.bind(this);
+    (this: any).onSearchTextChange = this.onSearchTextChange.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (this.props.postcodes !== nextProps.postcodes) {
+      this.setState({
+        postcodeDataSource: this.cloneWithData(
+          this.state.postcodeDataSource,
+          nextProps.postcodes
+        )
+      });
+    }
   }
 
   render() {
@@ -41,12 +71,35 @@ class AddLocation extends Component {
     var textInputStyle = {width: 56};
     var isTextInputEditable = false;
     var cancelTouchableStyle = {width: 0, height: 0};
+    var postcodeListView;
 
     if (this.state.isSearchActive) {
       iconStyle = {marginLeft: 8};
       textInputStyle = {flex: 1};
       isTextInputEditable = true;
       cancelTouchableStyle = {marginLeft: 8};
+
+      postcodeListView = (
+        <ListView
+          enableEmptySections={true}
+          dataSource={this.state.postcodeDataSource}
+          renderRow={(row) => {
+            return (
+              <View style={defaultStyles.section}>
+                <View style={defaultStyles.navigationButtonRow}>
+                  <View style={defaultStyles.navigationButtonView}>
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={defaultStyles.navigationButtonText}>{ row.name }</Text>
+                      <Text style={[defaultStyles.navigationButtonText, {paddingLeft: 8, color: '#C9C9CE'}]}>{ row.postcode }</Text>
+                    </View>
+                    <Text style={[defaultStyles.navigationButtonText, {color: '#C9C9CE'}]}>{ row.state }</Text>
+                  </View>
+                </View>
+              </View>
+            );
+          }}
+        />
+      );
     }
 
     return (
@@ -55,15 +108,23 @@ class AddLocation extends Component {
           <TouchableHighlight style={styles.searchBarTouchable} onPress={this.onSearchBarPressed} underlayColor='transparent'>
             <View style={styles.searchInnerView}>
               <Icon style={iconStyle} name='ios-search' size={16} color='#8E8E94' />
-              <TextInput style={[textInputStyle, styles.searchBarTextInput]} editable={isTextInputEditable} placeholder='Search' placeholderTextColor='#8E8E94'></TextInput>
+              <TextInput ref='searchTextInput' style={[textInputStyle, styles.searchBarTextInput]} editable={isTextInputEditable} placeholder='Search' placeholderTextColor='#8E8E94' onChangeText={this.onSearchTextChange}></TextInput>
             </View>
           </TouchableHighlight>
           <TouchableOpacity style={[cancelTouchableStyle, styles.searchBarCancelTouchable]} onPress={this.onSearchBarCancelPressed}>
             <Text style={styles.searchBarCancelText}>Cancel</Text>
           </TouchableOpacity>
         </View>
+
+        { postcodeListView }
       </View>
     );
+  }
+
+  onSearchTextChange(text: string) {
+    if (text.length >= 3) {
+      this.props.dispatch(searchPostcodes(text));
+    }
   }
 
   onSearchBarPressed() {
@@ -71,6 +132,7 @@ class AddLocation extends Component {
     this.setState({
       isSearchActive: true
     });
+    this.refs.searchTextInput.focus();
   }
 
   onSearchBarCancelPressed() {
@@ -78,6 +140,20 @@ class AddLocation extends Component {
     this.setState({
       isSearchActive: false
     });
+    this.refs.searchTextInput.clear();
+    this.props.dispatch(clearPostcodes());
+  }
+
+  cloneWithData(dataSource: ListView.DataSource, data: any) {
+    if (!data) {
+      return dataSource.cloneWithRows([]);
+    }
+
+    if (Array.isArray(data)) {
+      return dataSource.cloneWithRows(data);
+    }
+
+    return dataSource.cloneWithRowsAndSections(data);
   }
 }
 
@@ -119,4 +195,11 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = AddLocation;
+function select(store: any, props: Props): Props {
+  return {
+    postcodes: store.postcode.data,
+    ...props
+  };
+}
+
+module.exports = connect(select)(AddLocation);

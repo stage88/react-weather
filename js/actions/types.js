@@ -4,7 +4,7 @@
 
 'use strict';
 
-import type { WeatherModel, Location } from '../models/view';
+import type { WeatherModel, Location, Postcode } from '../models/view';
 
 export type Action =
     { type: 'WEATHER_SET_LOADING' }
@@ -12,4 +12,6 @@ export type Action =
   | { type: 'WEATHER_GET_ALL', data: Array<WeatherModel> }
   | { type: 'LOCATION_INITIALISED'}
   | { type: 'LOCATION_GET_ALL', data: Array<Location>}
-  | { type: 'LOCATION_CLEAR_ALL_DATA'};
+  | { type: 'LOCATION_CLEAR_ALL_DATA'}
+  | { type: 'POSTCODE_SEARCH', data: Array<Postcode>}
+  | { type: 'POSTCODE_CLEAR'};

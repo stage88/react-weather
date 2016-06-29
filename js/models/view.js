@@ -35,3 +35,9 @@ export type Location = {
   openWeatherId: string;
   observation: WeatherObservation;
 };
+
+export type Postcode = {
+  name: string;
+  postcode: number;
+  state: string;
+}
