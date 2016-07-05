@@ -13,13 +13,15 @@ import {
   Text,
   StatusBar,
   TouchableHighlight,
-  ScrollView
+  ScrollView,
+  LayoutAnimation
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import Swipeout from '../../dependencies/swipeout';
 
 import defaultStyles from './styles';
-import { getAllLocations } from '../../actions/location';
+import { getAllLocations, deleteLocation } from '../../actions/location';
 import type { Location } from '../../models/view';
 import AddLocation from './addlocation';
 
@@ -47,20 +49,32 @@ class Locations extends Component {
 
   render() {
     var locations = this.props.locations.map((item) => {
+      var current = item.observation ? item.observation.current + '\u00B0' : "-";
+      var low = item.observation ? item.observation.low : "-";
+      var high = item.observation ? item.observation.high : "-";
+      var icon = item.observation ? renderForecastImage(item.observation.icon, 20, 20) : null;
+
       return (
-        <View key={item.openWeatherId} style={styles.locationRow}>
-          <View style={styles.locationLeft}>
-            <Text style={styles.locationNameText}>{ item.name }</Text>
-            <Text style={styles.locationCurrentText}>{ item.observation.current + '\u00B0' }</Text>
-          </View>
-          <View style={styles.locationRight}>
-            <View style={{justifyContent: 'center', flexDirection: 'row'}}>
-              { renderForecastImage(item.observation.icon, 20, 20) }
-              <Text style={styles.locationTextLow}>{ item.observation.low }</Text>
-              <Text style={styles.locationTextHigh}>{ item.observation.high }</Text>
+        <Swipeout
+          key={item.openWeatherId}
+          autoClose={true}
+          right={[{text: 'Delete', backgroundColor: '#FF3B30', onPress: () => {
+            this.props.dispatch(deleteLocation(item.openWeatherId))
+          }}]}>
+          <View style={styles.locationRow}>
+            <View style={styles.locationLeft}>
+              <Text style={styles.locationNameText}>{ item.name }</Text>
+              <Text style={styles.locationCurrentText}>{ current }</Text>
+            </View>
+            <View style={styles.locationRight}>
+              <View style={{justifyContent: 'center', flexDirection: 'row'}}>
+                { icon }
+                <Text style={styles.locationTextLow}>{ low }</Text>
+                <Text style={styles.locationTextHigh}>{ high }</Text>
+              </View>
             </View>
           </View>
-        </View>
+        </Swipeout>
       );
     });
 

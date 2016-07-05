@@ -75,6 +75,10 @@ class SettingsNavigator extends Component {
     this.refs.navigator.push(route);
   }
 
+  pop() {
+    this.refs.navigator.pop();
+  }
+
   close() {
     this.props.navigator.pop();
   }

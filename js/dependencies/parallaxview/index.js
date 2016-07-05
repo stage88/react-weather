@@ -6,7 +6,7 @@ const {
   View
 } = require('react-native');
 
-const styles = require('./parallaxviewstyles');
+const styles = require('./styles');
 
 const { bool, func, number, string } = React.PropTypes;
 

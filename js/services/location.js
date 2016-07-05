@@ -29,14 +29,14 @@ class LocationService {
 
       for (var i = 0; i < defaultLocations.length; i++) {
         var location = defaultLocations[i];
-        var locationId = await this.getLocationIdFromApi(location.name);
+        var openWeatherId = await this.getLocationIdFromApi(location.name);
 
         context.write(() => {
           context.create('Location', {
             name: location.name,
             postcode: location.postcode,
             state: location.state,
-            openWeatherId: locationId.toString()
+            openWeatherId: openWeatherId.toString()
           });
         });
       }
@@ -59,7 +59,10 @@ class LocationService {
           postcode: location.postcode,
           state: location.state,
           openWeatherId: location.openWeatherId,
-          observation: {
+        }
+
+        if (location.weather) {
+          item.observation = {
             current: location.weather.observation.current,
             low: location.weather.observation.low,
             high: location.weather.observation.high,
@@ -76,6 +79,46 @@ class LocationService {
     return data;
   }
 
+  deleteLocation(openWeatherId: string) {
+    let context = realm.current();
+    try {
+      let location = context
+        .objects('Location')
+        .filtered(`openWeatherId = "${openWeatherId}"`);;
+
+      context.write(() => {
+        context.delete(location);
+      });
+    } finally {
+      context.close();
+    }
+  }
+
+  async addLocation(name: string, postcode: string, state: string) {
+    let context = realm.current();
+    try {
+      var openWeatherId = await this.getLocationIdFromApi(name);
+      let location = context
+        .objects('Location')
+        .filtered(`openWeatherId = "${openWeatherId}"`);
+
+      if (location.length > 0) {
+        return;
+      }
+
+      context.write(() => {
+        context.create('Location', {
+          name: name,
+          postcode: postcode,
+          state: state,
+          openWeatherId: openWeatherId.toString()
+        });
+      });
+    } finally {
+      context.close();
+    }
+  }
+
   clearAllData() {
     let context = realm.current();
     try {
@@ -90,7 +133,6 @@ class LocationService {
 
   async getLocationIdFromApi(location: string) {
     var url = `${weatherApiUrl}/find?q=${location},AU&type=accurate&units=metric&appid=${weatherApiKey}`;
-    var locationId;
 
     try {
       let response = await fetch(url);

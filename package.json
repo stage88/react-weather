@@ -10,6 +10,7 @@
     "react-native": "^0.26.3",
     "react-native-vector-icons": "^2.0.3",
     "react-redux": "^4.4.5",
+    "react-tween-state": "^0.1.5",
     "realm": "^0.13.2",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",

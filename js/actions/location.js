@@ -41,8 +41,35 @@ function clearAllLocationData() {
   };
 }
 
+function deleteLocation(openWeatherId: string) {
+  return (dispatch: any) => {
+    service.deleteLocation(openWeatherId);
+    dispatch({
+      type: 'LOCATION_DELETE'
+    });
+    dispatch(getAllLocations());
+    dispatch(getAllWeather());
+  };
+}
+
+function addLocation(name: string, postcode: string, state: string) {
+  return (dispatch: any) => {
+    service.addLocation(name, postcode, state).then(
+      (result) => {
+        dispatch({
+          type: 'LOCATION_ADD'
+        });
+        dispatch(getAllLocations());
+        dispatch(getAllWeather());
+      }
+    );
+  };
+}
+
 module.exports = {
   initaliseLocations,
   getAllLocations,
-  clearAllLocationData
+  clearAllLocationData,
+  deleteLocation,
+  addLocation
 };

@@ -62,6 +62,11 @@ const styles = StyleSheet.create({
   },
   navigationButtonText: {
     fontSize: 16
+  },
+  listItem: {
+    backgroundColor: '#fff',
+    borderColor: '#C8C7CC',
+    borderBottomWidth: 0.3,
   }
 });
 
