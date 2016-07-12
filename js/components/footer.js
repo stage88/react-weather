@@ -36,7 +36,7 @@ class Footer extends Component {
     return (
       <View style={styles.footer}>
         <View style={styles.left}>
-          <TouchableHighlight onPress={this.navigateToLocations} style={{width: 30}} underlayColor='transparent'>
+          <TouchableHighlight onPress={this.navigateToLocations} style={{width: 20}} underlayColor='transparent'>
             <Icon name='ios-list' size={35} color='#8F97A4' />
           </TouchableHighlight>
         </View>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f8f8f8',
-    borderTopWidth: 1,
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: '#c4c4c4'
   },
   left: {

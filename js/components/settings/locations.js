@@ -12,7 +12,6 @@ import {
   View,
   Text,
   StatusBar,
-  TouchableHighlight,
   ScrollView,
   LayoutAnimation
 } from 'react-native';
@@ -23,6 +22,9 @@ import Swipeout from '../../dependencies/swipeout';
 import defaultStyles from './styles';
 import { getAllLocations, deleteLocation } from '../../actions/location';
 import type { Location } from '../../models/view';
+
+import Section from './section'; 
+import NavigationButtonRow from './navigationbuttonrow';
 import AddLocation from './addlocation';
 
 const renderForecastImage = require('../forecastimage')
@@ -85,20 +87,12 @@ class Locations extends Component {
 
           { locations }
 
-          <View style={[defaultStyles.section, {marginTop: 36}]}>
-            <TouchableHighlight
-              style={defaultStyles.navigationButtonRow}
-              underlayColor='#C8C7CC'
-              onPress={() => this.props.navigator.navigateTo({
-                title: 'Add Location',
-                component: AddLocation
-              })}>
-              <View style={defaultStyles.navigationButtonView}>
-                <Text style={defaultStyles.navigationButtonText}>Add Location</Text>
-                <Icon name='ios-arrow-forward' size={20} color='#C7C7CC' />
-              </View>
-            </TouchableHighlight>
-          </View>
+          <Section style={{marginTop: 36}}>
+            <NavigationButtonRow 
+              text={'Add Location'} 
+              component={AddLocation} 
+              navigator={this.props.navigator} />
+          </Section>
         </ScrollView>
       </View>
     );

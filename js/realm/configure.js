@@ -19,7 +19,7 @@ function configureRealm() {
     }
   }
 
-  var current = schema.current()
+  var current = schema.current();
   var realm = new Realm(current);
   realm.close();
 }

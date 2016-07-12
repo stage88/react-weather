@@ -27,7 +27,7 @@ class ApplicationNavigator extends Component {
   render() {
     return (
       <Navigator
-        ref="navigator"
+        ref='navigator'
         style={styles.container}
         configureScene={(route) => {
           return Navigator.SceneConfigs.FloatFromBottom;
@@ -50,7 +50,7 @@ class ApplicationNavigator extends Component {
     if (route.settings) {
       return (
         <SettingsNavigator navigator={navigator} route={{
-          title: "Settings",
+          title: 'Settings',
           component: Settings
         }} />
       );
@@ -59,7 +59,7 @@ class ApplicationNavigator extends Component {
     if (route.locations) {
       return (
         <SettingsNavigator navigator={navigator} route={{
-          title: "Locations",
+          title: 'Locations',
           component: Locations
         }} />
       );

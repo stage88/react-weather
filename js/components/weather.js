@@ -21,6 +21,7 @@ import Swiper from '../dependencies/swiper';
 import Header from './header';
 import Footer from './footer';
 import Forecast from './forecast';
+import Loading from './loading';
 
 import type { WeatherModel } from '../models/view'
 
@@ -52,19 +53,13 @@ class Weather extends Component {
     };
 
     (this: any).onScroll = this.onScroll.bind(this);
-    (this: any).renderPagination = this.renderPagination.bind(this);
     (this: any).onSelectedIndexChange = this.onSelectedIndexChange.bind(this);
   }
 
   render() {
     if (this.props.isLoading === true) {
       return (
-        <View style={styles.loadingView}>
-          <View style={styles.loadingHeader}>
-            <Text style={styles.loadingText}>Loading...</Text>
-            <Image source={require('./img/sunny.gif')} />
-          </View>
-        </View>
+        <Loading />
       );
     }
 
@@ -76,10 +71,9 @@ class Weather extends Component {
 
     var swiper = (
       <Swiper
-        showsPagination={true}
+        showsPagination={false}
         loop={false}
         onScroll={this.onScroll}
-        renderPagination={this.renderPagination}
         onSelectedIndexChange={this.onSelectedIndexChange}
         scrollEventThrottle={8}>
         { forecastItems }
@@ -100,11 +94,7 @@ class Weather extends Component {
   }
 
   onSelectedIndexChange(index, offset) {
-    this.setState({current: index})
-  }
-
-  renderPagination(index, state, context) {
-    return null;
+    this.setState({current: index});
   }
 
   onScroll(e) {
@@ -116,20 +106,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F9F9F9'
-  },
-  loadingView: {
-    backgroundColor: '#fff',
-    flex: 1
-  },
-  loadingHeader: {
-    height: 290,
-    backgroundColor: '#589BC7',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    color: '#fff',
-    marginBottom: 18
   }
 });
 
